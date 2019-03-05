@@ -1,6 +1,7 @@
 package com.bytecodeio.looker.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -91,16 +92,22 @@ public class LookApi extends ApiBase{
 		RestClient.performDELETEOperation(getAuthToken(null), apiSuffix_3_0 +"/"+ lookId);
 	}
 	
-	public List<Look>searchLooks(String title){
+	public List<Look>searchLooks(String title, String spaceId){
+		
+		HashMap<String, String> params = new HashMap();
+		params.put("title", title);
+		params.put("space_id", spaceId);
+		
 		String responseJson;
+		String reqUrl = apiSuffix_3_0 +"/search";
 		try{
-			responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/search?title="+ title);
+			responseJson = RestClient.performGETOperation(getAuthToken(), reqUrl, params);
 			System.out.println(responseJson);
 			List<Look>searchResults = MappingUtils.getCollectionFromJson(responseJson, Look.class);
 			return searchResults;
 		}
 		catch(Exception e){
-			throw new ApiException("Unable to parse response from call");
+			throw new ApiException("Unable to parse response from call for GET opereation '"+ reqUrl +"'");
 		}
 	}
 }

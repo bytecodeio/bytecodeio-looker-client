@@ -10,9 +10,12 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import org.apache.http.client.utils.URIBuilder;
 
-import com.bytecodeio.looker.model.AuthToken;
 
 public class RestClient {
 
@@ -77,6 +80,10 @@ public class RestClient {
 	}
 	
 	public static String performGETOperation(String authToken, String apiEndpoint){
+		return performGETOperation(authToken, apiEndpoint, null);
+	}
+	
+	public static String performGETOperation(String authToken, String apiEndpoint, HashMap<String, String>params){
 		URL url;
 		HttpURLConnection conn=null;
 		OutputStream os;
@@ -84,7 +91,22 @@ public class RestClient {
 		BufferedReader br;
 		String output;
 		try{
-			url = new URL(apiEndpoint);
+			
+			URIBuilder ub = new URIBuilder(apiEndpoint);
+			if(params!=null){
+				Iterator<String> i = params.keySet().iterator();
+				String key;
+				while(i.hasNext()){
+					key = i.next();
+					ub.addParameter(key, params.get(key));
+				}
+			}
+			
+			String requestUrl = ub.toString();
+			
+			System.out.println("Performing GET operation for '"+ requestUrl +"'");
+			
+			url = new URL(requestUrl);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setDoInput(true);
@@ -109,6 +131,9 @@ public class RestClient {
 			conn.disconnect();
 			
 			return response.toString();
+		}
+		catch(URISyntaxException u){
+			throw new ApiException("Unable to connect to malformed url...");
 		}
 		catch(MalformedURLException m){
 			throw new ApiException("Unable to connect to malformed url...");
