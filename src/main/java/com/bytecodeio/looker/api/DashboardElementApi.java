@@ -11,7 +11,7 @@ import com.bytecodeio.looker.util.ApiException;
 import com.bytecodeio.looker.util.Config;
 import com.bytecodeio.looker.util.MappingUtils;
 import com.bytecodeio.looker.util.RestClient;
-
+import com.bytecodeio.looker.api.LookApi;
 public class DashboardElementApi extends ApiBase{
 	
 	String apiSuffix_3_1 = Config.CONFIG_API_BASE_3_1 +"/dashboard_elements";
@@ -30,7 +30,7 @@ public class DashboardElementApi extends ApiBase{
 	 * 
 	 * @return
 	 */
-	public DashboardElement addLookToDefaultDashboard(String lookId, String dashboardId)throws Exception{
+	public DashboardElement addLookToDefaultDashboard(String lookId, String dashboardId)throws ApiException{
 		String jsonResponse;
 		
 		//First a copy of the selected look must be copied into the current user's space. 
@@ -44,11 +44,11 @@ public class DashboardElementApi extends ApiBase{
 			newElement.setDashboardId(dashboardId);
 			newElement.setTitle(lookCopy.getTitle());
 			newElement.setType("vis");
-			String newElementJson = MappingUtils.serializeToJson(newElement);
-			jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1, newElementJson);
-			newElement = new DashboardElement();
 			
-			try{ 
+			try{
+				String newElementJson = MappingUtils.serializeToJson(newElement);
+				jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1, newElementJson);
+				newElement = new DashboardElement();
 				MappingUtils.populateFromJson(jsonResponse, newElement); 
 			}
 			catch(Exception e){
@@ -65,16 +65,16 @@ public class DashboardElementApi extends ApiBase{
 	 * 
 	 * @return
 	 */
-	public void removeTileToDashboard(String dashboardElementId, String dashboardId)throws Exception{
+	public void removeTileToDashboard(String dashboardElementId, String dashboardId)throws ApiException{
 		
 		//Get reference to dashboard, and locate target element
 		DashboardApi dashboardApi = new DashboardApi();
 		
 		Dashboard dashboard = dashboardApi.getDashboard(dashboardId); 
-		String lookId=null;
+		Long lookId=null;
 		for(DashboardElement curElement:dashboard.getDashboardElements()){
 			if(curElement.getId().equals(dashboardElementId)){
-				lookId = curElement.getLookId();
+				lookId = new Long(curElement.getLookId());//Note datatype from swagger API on Look element is type Long, reference in Dashboard is string however....
 				break;
 			}
 		}

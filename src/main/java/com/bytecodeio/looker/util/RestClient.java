@@ -190,7 +190,7 @@ public class RestClient {
 			
 			if (conn.getResponseCode()!= 200&&conn.getResponseCode()!=204) {
 				throw new RuntimeException("Failed : HTTP error code : "
-						+ conn.getResponseCode());
+						+ conn.getResponseCode() +" for url '"+ apiEndpoint +"'");
 			}
 			
 			br = new BufferedReader(new InputStreamReader((conn.getInputStream())));

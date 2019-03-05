@@ -61,23 +61,6 @@ public class DashboardApi extends ApiBase{
 		return dashboard;
 	}
 	
-	
-	/**
-	 * Spireon call:
-	 * 
-	 */
-	public List<Look>getAvailableLookTemplates()throws Exception{
-		return null;
-	}
-	
-	/**
-	 * Spireon call:
-	 * 
-	 */
-	public List<Look>getConfiguredLookTemplates()throws Exception{
-		return null;
-	}
-	
 	/*
 	public byte[] getDashboardAsHtml(String id){
 		List<String>renderTasks = new ArrayList();

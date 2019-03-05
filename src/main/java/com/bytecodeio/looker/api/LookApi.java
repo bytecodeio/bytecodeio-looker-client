@@ -87,7 +87,7 @@ public class LookApi extends ApiBase{
 		return look;
 	}
 	
-	public void deleteLook(String lookId){
-		RestClient.performDELETEOperation(getAuthToken(null), apiSuffix_3_0 +"/+ lookId");
+	public void deleteLook(Long lookId){
+		RestClient.performDELETEOperation(getAuthToken(null), apiSuffix_3_0 +"/"+ lookId);
 	}
 }

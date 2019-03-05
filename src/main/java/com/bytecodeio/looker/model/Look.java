@@ -1,5 +1,7 @@
 package com.bytecodeio.looker.model;
 
+import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Look {
@@ -19,7 +21,7 @@ public class Look {
 	private Long queryId = null;
 	
 	@JsonProperty("model")
-	private LookModel lookModel;
+	private HashMap <String, String>lookModel;
 	
 	public String getId() {
 		return id;
@@ -61,11 +63,11 @@ public class Look {
 		this.queryId = queryId;
 	}
 
-	public LookModel getLookModel() {
+	public HashMap <String, String> getLookModel() {
 		return lookModel;
 	}
 
-	public void setLookModel(LookModel lookModel) {
+	public void setLookModel(HashMap <String, String> lookModel) {
 		this.lookModel = lookModel;
 	}
 
