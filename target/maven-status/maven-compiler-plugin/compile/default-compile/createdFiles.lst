@@ -1,11 +1,11 @@
 com/bytecodeio/looker/util/Config.class
+com/bytecodeio/looker/util/FieldSelectionBuilder.class
 com/bytecodeio/looker/model/Look.class
 com/bytecodeio/looker/TestClientOperations.class
 com/bytecodeio/looker/api/RenderTaskApi.class
 com/bytecodeio/looker/api/DashboardElementApi.class
 com/bytecodeio/looker/util/UniqueTitleFormatter.class
 com/bytecodeio/looker/model/AuthToken.class
-Library.class
 com/bytecodeio/looker/util/ApiException.class
 com/bytecodeio/looker/api/QueryApi.class
 com/bytecodeio/looker/model/Dashboard.class

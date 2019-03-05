@@ -1,4 +1,4 @@
-/Development/bytecodeio-looker-client/src/test/java/LibraryTest.java
+/Development/bytecodeio-looker-client/src/test/java/com/bytecodeio/looker/util/MappingUtilsTest.java
 /Development/bytecodeio-looker-client/src/test/java/com/bytecodeio/looker/util/UniqueTitleFormatterTest.java
 /Development/bytecodeio-looker-client/src/test/java/com/bytecodeio/looker/api/ApiConfigTest.java
 /Development/bytecodeio-looker-client/src/test/java/com/bytecodeio/looker/api/RenderTaskApiTest.java

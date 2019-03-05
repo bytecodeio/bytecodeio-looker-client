@@ -47,7 +47,7 @@ public class TestClientOperations {
 			
 			//List<Dashboard> dashboards = dashboardApi.getDashboardSummaries(null);
 			
-			/*
+			
 			//Retrieve a dashboard
 				Dashboard dashboard = dashboardApi.getDashboard("37");
 			
@@ -58,20 +58,22 @@ public class TestClientOperations {
 				
 				
 			//Add a few looks to an existing dashboard
+				
 				DashboardElement newElement;
 				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
+				/*newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
-				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
-				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
+				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");*/
+				
 				
 			//List existing dashboard elements
-				List<DashboardElement>existingDashboardElements = dashboardElementApi.getDashboardElements("37");
+				//List<DashboardElement>existingDashboardElements = dashboardElementApi.getDashboardElements("37");
 				
 			//Remove a look from a dashboard
 				dashboardElementApi.removeTileToDashboard(newElement.getId(), "37");
-			*/
+			
 			
 			//Download dashboard in PDF format
 				//byte[] pdfContent = renderTaskApi.downloadDashboard("pdf", "37");
@@ -86,9 +88,16 @@ public class TestClientOperations {
 				//outputFile("looker.png", pngContent);	
 			
 			//Download dashboard in HTML format
-				byte[] dashboardHtml = renderTaskApi.downloadDashboard("html","37");
-				outputFile("looker.html", dashboardHtml);
+				//byte[] dashboardHtml = renderTaskApi.downloadDashboard("html","37");
+				//outputFile("looker.html", dashboardHtml);
 				
+			//List looks for a given space.
+			/*
+			List<Look> looks = spaceApi.getLooksForSpace("57");
+			for(Look look:looks){
+				look.getTitle();
+			}*/
+			
 			System.out.println("Fin");
 		}
 		catch(Exception e){

@@ -3,9 +3,9 @@
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/QueryApi.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/MappingUtils.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Look.java
+/Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/FieldSelectionBuilder.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/SpaceApi.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/DashboardElement.java
-/Development/bytecodeio-looker-client/src/main/java/Library.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/ApiException.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/Config.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/RenderTaskApi.java
