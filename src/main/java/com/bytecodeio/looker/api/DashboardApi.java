@@ -37,9 +37,9 @@ public class DashboardApi extends ApiBase{
 		
 		String dashboardsJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0);
 		
-		List<Dashboard>dashboards = new ArrayList();
+		List<Dashboard>dashboards ;
 		try{ 
-			MappingUtils.populateFromJson(dashboardsJson, dashboards); 
+			dashboards = MappingUtils.getCollectionFromJson(dashboardsJson, Dashboard.class); 
 		}
 		catch(Exception e){
 			throw new ApiException("Unable to parse response from call");

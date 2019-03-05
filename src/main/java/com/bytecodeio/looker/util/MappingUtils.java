@@ -1,11 +1,13 @@
 package com.bytecodeio.looker.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bytecodeio.looker.model.Dashboard;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 public class MappingUtils {
 
@@ -28,18 +30,11 @@ public class MappingUtils {
 		mapper.readerForUpdating(target).readValue(jsonSource);
 	}
 	
-	public static final void populateCollectionFromJson(String jsonSource, Object target, Class targetClass)throws Exception{
+	public static final <T>List<T>getCollectionFromJson(String jsonSource, Class<T> targetClass)throws Exception{
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		CollectionType javaType = mapper.getTypeFactory().constructCollectionType(List.class, targetClass);
-		//mapper.readerForUpdating(target).readValue(jsonSource, javaType);
+		TypeFactory t = TypeFactory.defaultInstance();
+	    ArrayList<T> results = mapper.readValue(jsonSource, t.constructCollectionType(ArrayList.class,targetClass));
+		return results;
 	}
 	
-	List<Dashboard>convertDashboardsFromJson(String jsonSource)throws Exception{
-		
-		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		CollectionType javaType = mapper.getTypeFactory().constructCollectionType(List.class, Dashboard.class);
-			    List<Dashboard> dashboards = mapper.readValue(jsonSource, javaType);
-		
-		return dashboards;
-	}
 }

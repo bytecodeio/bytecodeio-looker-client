@@ -39,8 +39,7 @@ public class SpaceApi extends ApiBase{
 		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ spaceId +"/looks");
 		
 		try{
-			List<Look>results = new ArrayList();	
-			MappingUtils.populateFromJson(responseJson, results);
+			List<Look>results = MappingUtils.getCollectionFromJson(responseJson, Look.class);
 			return results;
 		}
 		catch(Exception e){
@@ -54,8 +53,7 @@ public class SpaceApi extends ApiBase{
 		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/search?name="+ name);
 		
 		try{
-			List<Space> spaces = new ArrayList();
-			MappingUtils.populateFromJson(responseJson, spaces);
+			List<Space> spaces = MappingUtils.getCollectionFromJson(responseJson, Space.class);
 			return spaces;
 		}
 		catch(Exception e){
