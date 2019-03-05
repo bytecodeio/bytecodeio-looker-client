@@ -90,4 +90,17 @@ public class LookApi extends ApiBase{
 	public void deleteLook(Long lookId){
 		RestClient.performDELETEOperation(getAuthToken(null), apiSuffix_3_0 +"/"+ lookId);
 	}
+	
+	public List<Look>searchLooks(String title){
+		String responseJson;
+		try{
+			responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/search?title="+ title);
+			System.out.println(responseJson);
+			List<Look>searchResults = MappingUtils.getCollectionFromJson(responseJson, Look.class);
+			return searchResults;
+		}
+		catch(Exception e){
+			throw new ApiException("Unable to parse response from call");
+		}
+	}
 }
