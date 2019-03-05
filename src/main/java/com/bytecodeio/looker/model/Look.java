@@ -23,6 +23,18 @@ public class Look {
 	@JsonProperty("model")
 	private HashMap <String, String>lookModel;
 	
+	@JsonProperty("query")
+	private Query query;
+	
+	public Look(){
+		
+	}
+	
+	public Look(String id, String title){
+		this.id = id;
+		this.title = title;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -74,4 +86,13 @@ public class Look {
 	public String toString(){
 		return "id="+ id +",title="+ title +",spaceId="+ spaceId;
 	}
+
+	public Query getQuery() {
+		return query;
+	}
+
+	public void setQuery(Query query) {
+		this.query = query;
+	}
+	
 }

@@ -8,6 +8,7 @@
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/RestClient.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/DashboardApi.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/ApiBase.java
+/Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Query.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Space.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/SpaceApi.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/FieldSelectionBuilder.java

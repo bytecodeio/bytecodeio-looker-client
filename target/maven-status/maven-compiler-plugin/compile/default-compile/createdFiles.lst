@@ -9,6 +9,7 @@ com/bytecodeio/looker/model/AuthToken.class
 com/bytecodeio/looker/util/ApiException.class
 com/bytecodeio/looker/api/QueryApi.class
 com/bytecodeio/looker/model/Dashboard.class
+com/bytecodeio/looker/model/Query.class
 com/bytecodeio/looker/model/RenderTask.class
 com/bytecodeio/looker/util/RestClient.class
 com/bytecodeio/looker/api/SpaceApi.class
