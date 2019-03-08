@@ -1,6 +1,6 @@
 package com.bytecodeio.looker.api;
 
-import java.net.URL;
+import java.util.HashMap;
 
 import com.bytecodeio.looker.model.AuthToken;
 import com.bytecodeio.looker.util.ApiException;
@@ -18,15 +18,21 @@ public class ApiBase {
 	
 	public String getAuthToken()throws ApiException{
 		
+		String requestUrl=null;
 		try{
-			String requestUrl = Config.CONFIG_API_BASE_3_0 +"/login?client_id="+ Config.CONFIG_API_KEY +"&client_secret="+ Config.CONFIG_SECRET_KEY;
-			String authResponse = RestClient.performPOSTOperation(null, requestUrl);
+			
+			HashMap<String, String>params = new HashMap();
+			params.put("client_id",  Config.CONFIG_API_KEY);
+			params.put("client_secret", Config.CONFIG_SECRET_KEY);
+			
+			requestUrl = Config.CONFIG_API_BASE_3_0 +"/login";
+			String authResponse = RestClient.performPOSTOperation(null, requestUrl, params);
 			AuthToken authToken = new AuthToken();
 			MappingUtils.populateFromJson(authResponse.toString(), authToken);
 			return authToken.accessToken;
 		}
 		catch(Exception e){
-			throw new ApiException(e.getMessage());
+			throw new ApiException(e.getMessage() +", request url: "+ requestUrl);
 		}
 	}
 	

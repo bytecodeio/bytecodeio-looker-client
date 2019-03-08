@@ -55,7 +55,7 @@ public class LookApi extends ApiBase{
 			throw new ApiException("Unable to map object to json format");
 		}
 		
-		String jsonResponse = RestClient.performPOSTOperation(getAuthToken(null), apiSuffix_3_0, lookJson);
+		String jsonResponse = RestClient.performPOSTOperation(getAuthToken(null), apiSuffix_3_0, lookJson, null);
 		look = new Look();
 		
 		try{

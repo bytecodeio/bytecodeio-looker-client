@@ -33,7 +33,7 @@ public class TestClientOperations {
 	public static void main(String[] args){
 	
 		try{
-			Config config = new Config();
+			Config config = Config.getConfig();
 			Config.CONFIG_API_KEY="gtfp9GZxRZ2PzyhHPFrG";
 			Config.CONFIG_SECRET_KEY="XCRvfrpKgdQCjBfH9xw42Z76";
 			Config.CONFIG_API_BASE_3_0 = "https://bytecode.looker.com:19999/api/3.0";
@@ -49,18 +49,18 @@ public class TestClientOperations {
 			
 			
 			//Retrieve a dashboard
-				Dashboard dashboard = dashboardApi.getDashboard("37");
+				//Dashboard dashboard = dashboardApi.getDashboard("37");
 			
 			//List all looks for a 'template' space	
-				//List<Look>availableTemplates = spaceApi..getLooksForSpace("57");
-				Space space = spaceApi.getSpace("57");
-				List<Look>availableTemplates = space.getLooks();
+				//List<Look>availableTemplates = spaceApi.getLooksForSpace("57");
+				//Space space = spaceApi.getSpace("57");
+				//List<Look>availableTemplates = space.getLooks();
 				
 				
 			//Add a few looks to an existing dashboard
 				
-				DashboardElement newElement;
-				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
+				//DashboardElement newElement;
+				//newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				/*newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
@@ -72,12 +72,12 @@ public class TestClientOperations {
 				//List<DashboardElement>existingDashboardElements = dashboardElementApi.getDashboardElements("37");
 				
 			//Remove a look from a dashboard
-				dashboardElementApi.removeTileToDashboard(newElement.getId(), "37");
+				//dashboardElementApi.removeTileToDashboard(newElement.getId(), "37");
 			
 			
 			//Download dashboard in PDF format
-				//byte[] pdfContent = renderTaskApi.downloadDashboard("pdf", "37");
-				//outputFile("looker.pdf", pdfContent);
+				byte[] pdfContent = renderTaskApi.downloadDashboard("pdf", "37");
+				outputFile("looker.pdf", pdfContent);
 				
 			//Download dashboard in JPG format
 				//byte[] jpgContent = renderTaskApi.downloadDashboard("jpg", "37");

@@ -19,18 +19,26 @@ import org.apache.http.client.utils.URIBuilder;
 
 public class RestClient {
 
-	public static String performPOSTOperation(String authToken, String apiEndpoint){
-		return performPOSTOperation(authToken, apiEndpoint, null);
+	public static String performPOSTOperation(String authToken, String apiEndpoint, HashMap<String, String>params){
+		return performPOSTOperation(authToken, apiEndpoint, null, params);
 	}
 	
-	public static String performPOSTOperation(String authToken, String apiEndpoint, String jsonPostBody){
+	public static String performPOSTOperation(String authToken, String apiEndpoint, String jsonPostBody, HashMap<String, String>params){
 		URL url;
 		HttpURLConnection conn=null;
 		StringBuffer response;
 		BufferedReader br;
 		String output;
+		String requestUrl = null;
 		try{
-			url = new URL(apiEndpoint);
+			
+			System.out.println("Api endpoint: "+ apiEndpoint);
+			
+			requestUrl = getUrl(apiEndpoint, params);
+			
+			System.out.println("Requesting URL: "+ requestUrl);
+			
+			url = new URL(requestUrl);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			if(authToken!=null){
@@ -53,6 +61,7 @@ public class RestClient {
 			
 		    conn.connect();
 			response = new StringBuffer();
+			System.out.println(conn.getResponseCode());
 			
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
@@ -75,12 +84,33 @@ public class RestClient {
 			throw new ApiException("Unable to connect to specified url (protocol exception)...");
 		}
 		catch(IOException io){
-			throw new ApiException("Unable to connect to specified url (io exception)...");
+			throw new ApiException("Unable to connect to specified url (io exception)..."+ requestUrl);
+		}
+		catch(Exception ex){
+			throw new ApiException("Unable to connect to specified url (exception)..."+ requestUrl);
 		}
 	}
 	
 	public static String performGETOperation(String authToken, String apiEndpoint){
 		return performGETOperation(authToken, apiEndpoint, null);
+	}
+	
+	static String getUrl(String apiEndpoint, HashMap<String, String>params) throws Exception{
+		if(params==null){
+			return apiEndpoint;
+		}
+		
+		URIBuilder ub = new URIBuilder(apiEndpoint);
+		if(params!=null){
+			Iterator<String> i = params.keySet().iterator();
+			String key;
+			while(i.hasNext()){
+				key = i.next();
+				ub.addParameter(key, params.get(key));
+			}
+		}
+		
+		return ub.toString();
 	}
 	
 	public static String performGETOperation(String authToken, String apiEndpoint, HashMap<String, String>params){
@@ -92,17 +122,7 @@ public class RestClient {
 		String output;
 		try{
 			
-			URIBuilder ub = new URIBuilder(apiEndpoint);
-			if(params!=null){
-				Iterator<String> i = params.keySet().iterator();
-				String key;
-				while(i.hasNext()){
-					key = i.next();
-					ub.addParameter(key, params.get(key));
-				}
-			}
-			
-			String requestUrl = ub.toString();
+			String requestUrl = getUrl(apiEndpoint, params);
 			
 			System.out.println("Performing GET operation for '"+ requestUrl +"'");
 			
@@ -143,6 +163,9 @@ public class RestClient {
 		}
 		catch(IOException io){
 			throw new ApiException("Unable to connect to specified url (io exception)...");
+		}
+		catch(Exception ex){
+			throw new ApiException("Unable to connect to specified url (exception)...");
 		}
 	}
 	
