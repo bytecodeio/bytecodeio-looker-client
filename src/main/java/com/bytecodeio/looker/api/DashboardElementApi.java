@@ -47,7 +47,7 @@ public class DashboardElementApi extends ApiBase{
 			
 			try{
 				String newElementJson = MappingUtils.serializeToJson(newElement);
-				jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1, newElementJson);
+				jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1, newElementJson, null);
 				newElement = new DashboardElement();
 				MappingUtils.populateFromJson(jsonResponse, newElement); 
 			}
@@ -65,7 +65,7 @@ public class DashboardElementApi extends ApiBase{
 	 * 
 	 * @return
 	 */
-	public void removeTileToDashboard(String dashboardElementId, String dashboardId)throws ApiException{
+	public void removeTileFromDashboard(String dashboardElementId, String dashboardId)throws ApiException{
 		
 		//Get reference to dashboard, and locate target element
 		DashboardApi dashboardApi = new DashboardApi();
@@ -74,7 +74,7 @@ public class DashboardElementApi extends ApiBase{
 		Long lookId=null;
 		for(DashboardElement curElement:dashboard.getDashboardElements()){
 			if(curElement.getId().equals(dashboardElementId)){
-				lookId = new Long(curElement.getLookId());//Note datatype from swagger API on Look element is type Long, reference in Dashboard is string however....
+				lookId = new Long(curElement.getLookId());//Note datatype from swagger API on Look element is type Long, reference in dashboard is string however....
 				break;
 			}
 		}

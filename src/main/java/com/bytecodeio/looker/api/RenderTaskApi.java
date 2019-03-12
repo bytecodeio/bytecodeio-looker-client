@@ -1,5 +1,7 @@
 package com.bytecodeio.looker.api;
 
+import java.util.HashMap;
+
 import com.bytecodeio.looker.model.Dashboard;
 import com.bytecodeio.looker.model.DashboardElement;
 import com.bytecodeio.looker.model.RenderTask;
@@ -36,8 +38,14 @@ public class RenderTaskApi extends ApiBase{
 	}
 	
 	RenderTask registerDashboardRenderTask(String dashboardId, String format)throws ApiException{
+		HashMap<String, String>params = new HashMap();
+		params.put("width", "1000");
+		params.put("height", "1024");
+		params.put("pdf_paper_size", "a4");
 		
-		String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/dashboards/"+ dashboardId +"/"+ format +"?width=1000&height=1024&pdf_paper_size=a4","{}");
+		//String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/dashboards/"+ dashboardId +"/"+ format +"?width=1000&height=1024&pdf_paper_size=a4","{}");
+		String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/dashboards/"+ dashboardId +"/"+ format ,"{}", params);
+		
 		RenderTask renderTask = new RenderTask();
 		try{
 			MappingUtils.populateFromJson(responseJson, renderTask);
@@ -49,8 +57,12 @@ public class RenderTaskApi extends ApiBase{
 	}
 	
 	RenderTask registerLookRenderTask(String lookId, String format)throws ApiException{
+		HashMap<String, String>params = new HashMap();
+		params.put("width", "1000");
+		params.put("height", "1024");
+		params.put("pdf_paper_size", "a4");
 		
-		String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/looks/"+ lookId +"/"+ format +"?width=1000&height=1024&pdf_paper_size=a4","{}");
+		String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/looks/"+ lookId +"/"+ format, params);
 		RenderTask renderTask = new RenderTask();
 		try{
 			MappingUtils.populateFromJson(responseJson, renderTask);

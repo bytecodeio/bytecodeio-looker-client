@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.bytecodeio.looker.model.AuthToken;
@@ -59,6 +60,23 @@ public class DashboardApi extends ApiBase{
 		}
 		
 		return dashboard;
+	}
+	
+	public List<Dashboard>searchDashboards(String title, String spaceId){
+		
+		HashMap<String, String>params = new HashMap();
+		params.put("title", title);
+		params.put("space_id", spaceId);
+		
+		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0, params);
+	
+		try{ 
+			List<Dashboard> searchResults = MappingUtils.getCollectionFromJson(responseJson, Dashboard.class);
+			return searchResults;
+		}catch(Exception e){
+			throw new ApiException("Unable to parse response from call");
+		}
+		
 	}
 	
 	/*

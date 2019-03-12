@@ -1,6 +1,7 @@
 package com.bytecodeio.looker.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.bytecodeio.looker.model.Look;
@@ -50,7 +51,10 @@ public class SpaceApi extends ApiBase{
 	
 	public List<Space> searchSpaces(String name){
 		
-		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/search?name="+ name);
+		HashMap<String, String> params = new HashMap();
+		params.put("name", name);
+		
+		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/search", params);
 		
 		try{
 			List<Space> spaces = MappingUtils.getCollectionFromJson(responseJson, Space.class);

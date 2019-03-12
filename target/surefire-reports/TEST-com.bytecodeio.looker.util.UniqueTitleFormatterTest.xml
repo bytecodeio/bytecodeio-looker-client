@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="com.bytecodeio.looker.util.UniqueTitleFormatterTest" time="0.002" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="com.bytecodeio.looker.util.UniqueTitleFormatterTest" time="0.003" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home/jre/lib"/>
     <property name="java.vm.version" value="25.202-b03"/>
     <property name="gopherProxySet" value="false"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="/development/bytecodeio-looker-client"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Development/bytecodeio-looker-client"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=":"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -66,5 +66,5 @@
   </properties>
   <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="confirmDuclicateTitleExists" time="0.001"/>
   <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="confirmProducesUniqueTitle" time="0.001"/>
-  <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="getHigestCopyNumber" time="0"/>
+  <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="getHigestCopyNumber" time="0.001"/>
 </testsuite>

@@ -6,7 +6,7 @@
     <property name="java.vm.version" value="25.202-b03"/>
     <property name="gopherProxySet" value="false"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="/development/bytecodeio-looker-client"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Development/bytecodeio-looker-client"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=":"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>

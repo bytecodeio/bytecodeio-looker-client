@@ -23,8 +23,13 @@ public class Config {
 	public static String CONFIG_API_BASE_3_1 = "";
 	public static String CONFIG_TEMPLATE_FOLDER_NAME = "";
 	public static String[] CONFIG_DEFAULT_DASHBOARD_LOOKS = {};
+	public static String CONFIG_DEFAULT_DASHBOARD_NAME="";
 	
-	private static Config configRef;
+	private static Config configRef=null;
+	
+	private Config(){
+		
+	}
 	
 	public static Config getConfig(){
 		if(Config.configRef==null){
@@ -35,12 +40,12 @@ public class Config {
 	
 	public static void setProperties(String apiKey, String secretKey, String apiRef_3_0, String apiRef_3_1, String templateFolderName, String[] defaultDashboardLooks){
 		
-		CONFIG_API_KEY=apiKey;
-		CONFIG_SECRET_KEY=secretKey;
-		CONFIG_API_BASE_3_0 = apiRef_3_0;
-		CONFIG_API_BASE_3_1 = apiRef_3_1;
-		CONFIG_TEMPLATE_FOLDER_NAME = templateFolderName;
-		CONFIG_DEFAULT_DASHBOARD_LOOKS = defaultDashboardLooks;
+		Config.CONFIG_API_KEY=apiKey;
+		Config.CONFIG_SECRET_KEY=secretKey;
+		Config.CONFIG_API_BASE_3_0 = apiRef_3_0;
+		Config.CONFIG_API_BASE_3_1 = apiRef_3_1;
+		Config.CONFIG_TEMPLATE_FOLDER_NAME = templateFolderName;
+		Config.CONFIG_DEFAULT_DASHBOARD_LOOKS = defaultDashboardLooks;
 		
 	}
 
