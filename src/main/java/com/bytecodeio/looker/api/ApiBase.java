@@ -17,6 +17,7 @@ public class ApiBase {
 	}
 	
 	public String getAuthToken()throws ApiException{
+		System.out.println("Requesting auth token (3.0)");
 		
 		String requestUrl=null;
 		try{
@@ -26,6 +27,27 @@ public class ApiBase {
 			params.put("client_secret", Config.CONFIG_SECRET_KEY);
 			
 			requestUrl = Config.CONFIG_API_BASE_3_0 +"/login";
+			String authResponse = RestClient.performPOSTOperation(null, requestUrl, params);
+			AuthToken authToken = new AuthToken();
+			MappingUtils.populateFromJson(authResponse.toString(), authToken);
+			return authToken.accessToken;
+		}
+		catch(Exception e){
+			throw new ApiException(e.getMessage() +", request url: "+ requestUrl);
+		}
+	}
+	
+	public String getAuthToken_3_1()throws ApiException{
+		System.out.println("Requesting auth token (3.1)");
+		
+		String requestUrl=null;
+		try{
+			
+			HashMap<String, String>params = new HashMap();
+			params.put("client_id",  Config.CONFIG_API_KEY);
+			params.put("client_secret", Config.CONFIG_SECRET_KEY);
+			
+			requestUrl = Config.CONFIG_API_BASE_3_1 +"/login";
 			String authResponse = RestClient.performPOSTOperation(null, requestUrl, params);
 			AuthToken authToken = new AuthToken();
 			MappingUtils.populateFromJson(authResponse.toString(), authToken);

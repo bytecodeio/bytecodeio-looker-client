@@ -80,7 +80,7 @@ public class DashboardElementApi extends ApiBase{
 		}
 		
 		//Remove dashboard element.
-		RestClient.performDELETEOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElementId); 
+		RestClient.performDELETEOperation(getAuthToken_3_1(), apiSuffix_3_1 +"/"+ dashboardElementId); 
 		
 		//Delete referenced look
 		LookApi lookApi = new LookApi();

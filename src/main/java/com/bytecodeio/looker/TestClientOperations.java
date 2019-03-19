@@ -34,10 +34,11 @@ public class TestClientOperations {
 	
 		try{
 			Config config = Config.getConfig();
-			Config.CONFIG_API_KEY="gtfp9GZxRZ2PzyhHPFrG";
-			Config.CONFIG_SECRET_KEY="XCRvfrpKgdQCjBfH9xw42Z76";
-			Config.CONFIG_API_BASE_3_0 = "https://bytecode.looker.com:19999/api/3.0";
-			Config.CONFIG_API_BASE_3_1 = "https://bytecode.looker.com:19999/api/3.1";
+			config.CONFIG_API_KEY="gtfp9GZxRZ2PzyhHPFrG";
+			config.CONFIG_SECRET_KEY="XCRvfrpKgdQCjBfH9xw42Z76";
+			config.CONFIG_API_BASE_3_0 = "https://bytecode.looker.com:19999/api/3.0";
+			config.CONFIG_API_BASE_3_1 = "https://bytecode.looker.com:19999/api/3.1";
+			config.CONFIG_EMBED_SECRET_ID = "577b70af9697d599928ad0367bd85b7da3be3721fbb607af47c1b0542daaf1c4";
 			
 			RenderTaskApi renderTaskApi = new RenderTaskApi();
 			DashboardApi dashboardApi = new DashboardApi();
@@ -59,8 +60,8 @@ public class TestClientOperations {
 				
 			//Add a few looks to an existing dashboard
 				
-				//DashboardElement newElement;
-				//newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
+				DashboardElement newElement;
+				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				/*newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
 				newElement = dashboardElementApi.addLookToDefaultDashboard("14", "37");
@@ -72,12 +73,12 @@ public class TestClientOperations {
 				//List<DashboardElement>existingDashboardElements = dashboardElementApi.getDashboardElements("37");
 				
 			//Remove a look from a dashboard
-				//dashboardElementApi.removeTileToDashboard(newElement.getId(), "37");
+				dashboardElementApi.removeTileFromDashboard(newElement.getId(), "37");
 			
 			
 			//Download dashboard in PDF format
-				byte[] pdfContent = renderTaskApi.downloadDashboard("pdf", "37");
-				outputFile("looker.pdf", pdfContent);
+				//byte[] pdfContent = renderTaskApi.downloadDashboard("pdf", "37");
+				//outputFile("looker.pdf", pdfContent);
 				
 			//Download dashboard in JPG format
 				//byte[] jpgContent = renderTaskApi.downloadDashboard("jpg", "37");
