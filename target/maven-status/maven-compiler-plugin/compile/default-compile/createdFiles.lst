@@ -19,4 +19,5 @@ com/bytecodeio/looker/model/DashboardElement.class
 com/bytecodeio/looker/model/LookModel.class
 com/bytecodeio/looker/api/DashboardApi.class
 com/bytecodeio/looker/util/MappingUtils.class
+com/bytecodeio/looker/model/VisConfig.class
 com/bytecodeio/looker/api/LookApi.class

@@ -22,7 +22,7 @@ public class RestClient {
 	public static String performPOSTOperation(String authToken, String apiEndpoint, HashMap<String, String>params){
 		return performPOSTOperation(authToken, apiEndpoint, null, params);
 	}
-	
+
 	public static String performPOSTOperation(String authToken, String apiEndpoint, String jsonPostBody, HashMap<String, String>params){
 		URL url;
 		HttpURLConnection conn=null;
@@ -31,13 +31,13 @@ public class RestClient {
 		String output;
 		String requestUrl = null;
 		try{
-			
+
 			System.out.println("Api endpoint: "+ apiEndpoint);
-			
+
 			requestUrl = getUrl(apiEndpoint, params);
-			
+
 			System.out.println("Requesting URL: "+ requestUrl);
-			
+
 			url = new URL(requestUrl);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
@@ -48,33 +48,33 @@ public class RestClient {
 			else{
 				conn.setDoInput(true);
 			}
-			
+
 			if(jsonPostBody!=null){
-				
+
 				conn.setRequestProperty("Content-Type", "application/json");
-				
+
 				conn.setDoOutput(true);
 				OutputStream outputStream = conn.getOutputStream();
 				outputStream.write(jsonPostBody.getBytes("UTF-8"));
 				outputStream.flush();
 			}
-			
+
 		    conn.connect();
 			response = new StringBuffer();
 			System.out.println(conn.getResponseCode());
-			
+
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ conn.getResponseCode());
 			}
-			
+
 			br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 			while ((output = br.readLine()) != null) {
 				response.append(output);
 			}
-			
+
 			conn.disconnect();
-			
+
 			return response.toString();
 		}
 		catch(MalformedURLException m){
@@ -87,19 +87,19 @@ public class RestClient {
 			throw new ApiException("Unable to connect to specified url (io exception)..."+ requestUrl);
 		}
 		catch(Exception ex){
-			throw new ApiException("Unable to connect to specified url (exception)..."+ requestUrl);
+			throw new ApiException("Unable to connect to specified url (exception)..."+ requestUrl + jsonPostBody + ex.toString());
 		}
 	}
-	
+
 	public static String performGETOperation(String authToken, String apiEndpoint){
 		return performGETOperation(authToken, apiEndpoint, null);
 	}
-	
+
 	static String getUrl(String apiEndpoint, HashMap<String, String>params) throws Exception{
 		if(params==null){
 			return apiEndpoint;
 		}
-		
+
 		URIBuilder ub = new URIBuilder(apiEndpoint);
 		if(params!=null){
 			Iterator<String> i = params.keySet().iterator();
@@ -109,10 +109,10 @@ public class RestClient {
 				ub.addParameter(key, params.get(key));
 			}
 		}
-		
+
 		return ub.toString();
 	}
-	
+
 	public static String performGETOperation(String authToken, String apiEndpoint, HashMap<String, String>params){
 		URL url;
 		HttpURLConnection conn=null;
@@ -121,11 +121,11 @@ public class RestClient {
 		BufferedReader br;
 		String output;
 		try{
-			
+
 			String requestUrl = getUrl(apiEndpoint, params);
-			
+
 			System.out.println("Performing GET operation for '"+ requestUrl +"'");
-			
+
 			url = new URL(requestUrl);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
@@ -133,23 +133,23 @@ public class RestClient {
 			if(authToken!=null){
 				conn.setRequestProperty("Authorization", "token "+ authToken);
 			}
-			
+
 		    conn.connect();
 			response = new StringBuffer();
-			
+
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ conn.getResponseCode());
 			}
-			
+
 			br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 			while ((output = br.readLine()) != null) {
 				response.append(output);
 			}
 			System.out.println(response.toString());
-			
+
 			conn.disconnect();
-			
+
 			return response.toString();
 		}
 		catch(URISyntaxException u){
@@ -168,7 +168,7 @@ public class RestClient {
 			throw new ApiException("Unable to connect to specified url (exception)...");
 		}
 	}
-	
+
 	public static byte[] performBinaryGETOperation(String authToken, String apiEndpoint){
 		URL url;
 		HttpURLConnection conn=null;
@@ -182,16 +182,16 @@ public class RestClient {
 			conn.setRequestMethod("GET");
 			conn.setDoInput(true);
 			conn.setRequestProperty("Authorization", "token "+ authToken);
-			
-			
+
+
 		    conn.connect();
 			response = new StringBuffer();
-			
+
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ conn.getResponseCode());
 			}
-			
+
 			InputStream is = conn.getInputStream();
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
@@ -203,9 +203,9 @@ public class RestClient {
 			}
 
 			conn.disconnect();
-			
+
 			return buffer.toByteArray();
-			
+
 		}
 		catch(MalformedURLException m){
 			throw new ApiException("Unable to connect to malformed url...");
@@ -217,7 +217,7 @@ public class RestClient {
 			throw new ApiException("Unable to connect to specified url (io exception)...");
 		}
 	}
-	
+
 	public static void performDELETEOperation(String authToken, String apiEndpoint){
 		URL url;
 		HttpURLConnection conn=null;
@@ -231,24 +231,24 @@ public class RestClient {
 			conn.setRequestMethod("DELETE");
 			conn.setDoInput(true);
 			conn.setRequestProperty("Authorization", "token "+ authToken);
-			
-			
+
+
 		    conn.connect();
 			response = new StringBuffer();
-			
+
 			if (conn.getResponseCode()!= 200&&conn.getResponseCode()!=204) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ conn.getResponseCode() +" for url '"+ apiEndpoint +"'");
 			}
-			
+
 			br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 			while ((output = br.readLine()) != null) {
 				response.append(output);
 			}
 			System.out.println(response.toString());
-			
+
 			conn.disconnect();
-			
+
 		}
 		catch(MalformedURLException m){
 			throw new ApiException("Unable to connect to malformed url...");
@@ -260,5 +260,5 @@ public class RestClient {
 			throw new ApiException("Unable to connect to specified url (io exception)...");
 		}
 	}
-	
+
 }

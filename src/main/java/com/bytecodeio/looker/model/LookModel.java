@@ -8,11 +8,11 @@ public class LookModel {
 
 	@JsonProperty("id")
 	private String id;
-	
+
 	@JsonProperty("name")
 	private String name = null;
 
-	@JsonProperty("project_name")
+    @JsonProperty("project_name")
 	private String projectName = null;
 
 	@JsonProperty("allowed_db_connection_names")

@@ -9,19 +9,19 @@ public class Dashboard {
 
 	@JsonProperty("id")
 	private String id = null;
-	
+
 	@JsonProperty("title")
 	private String title = null;
-	
+
 	@JsonProperty("description")
 	private String description  = null;
 
+	@JsonProperty("space_id")
+    private String spaceId;
+
 	@JsonProperty("dashboard_elements")
 	private List<DashboardElement> dashboardElements = new ArrayList();
-	
-	@JsonProperty("space_id")
-	private String spaceId;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -45,7 +45,7 @@ public class Dashboard {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public List<DashboardElement> getDashboardElements() {
 		return dashboardElements;
 	}
@@ -53,7 +53,7 @@ public class Dashboard {
 	public void setDashboardElements(List<DashboardElement> dashboardElements) {
 		this.dashboardElements = dashboardElements;
 	}
-	
+
 	public String getSpaceId() {
 		return spaceId;
 	}
@@ -63,6 +63,6 @@ public class Dashboard {
 	}
 
 	public String toString(){
-		return "id: "+ id +",title: "+ title +", description: "+ description  +", dashboard element count: "+ this.dashboardElements.size();
+		return "id: "+ id +",title: "+ title +", description: "+ description +", dashboard element count: "+ this.dashboardElements.size();
 	}
 }

@@ -20,3 +20,4 @@
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/AuthToken.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/ApiBase.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Query.java
+/Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/VisConfig.java
