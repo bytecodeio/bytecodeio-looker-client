@@ -19,6 +19,9 @@ public class Space {
 	@JsonProperty("looks")
 	private List<Look>looks = new ArrayList();
 
+	@JsonProperty("dashboards")
+	private List<Dashboard> dashboards = new ArrayList();
+	
 	public String getId() {
 		return id;
 	}
@@ -50,4 +53,14 @@ public class Space {
 	public void setLooks(List<Look> looks) {
 		this.looks = looks;
 	}
+
+	public List<Dashboard> getDashboards() {
+		return dashboards;
+	}
+
+	public void setDashboards(List<Dashboard> dashboards) {
+		this.dashboards = dashboards;
+	}
+	
+	
 }

@@ -55,7 +55,7 @@ public class DashboardElementApi extends ApiBase{
 
 			try{
 				String newElementJson = MappingUtils.serializeToJson(newElement);
-				jsonResponse = RestClient.performPOSTOperation(getAuthToken("3.1"), apiSuffix_3_1, newElementJson, null);
+				jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1, newElementJson, null);
 				newElement = new DashboardElement();
 				MappingUtils.populateFromJson(jsonResponse, newElement);
 			}
@@ -88,7 +88,7 @@ public class DashboardElementApi extends ApiBase{
 		}
 
 		//Remove dashboard element.
-		RestClient.performDELETEOperation(getAuthToken("3.1"), apiSuffix_3_1 +"/"+ dashboardElementId);
+		RestClient.performDELETEOperation(getAuthToken_3_1(), apiSuffix_3_1 +"/"+ dashboardElementId);
 
 		//Delete referenced look
 		LookApi lookApi = new LookApi();

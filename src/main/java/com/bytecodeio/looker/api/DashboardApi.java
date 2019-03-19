@@ -36,7 +36,7 @@ public class DashboardApi extends ApiBase{
 
 	public List<Dashboard> getDashboardSummaries(String embedUserId)throws ApiException{
 
-		String dashboardsJson = RestClient.performGETOperation(getAuthToken("3.0"), apiSuffix_3_0);
+		String dashboardsJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0);
 
 		List<Dashboard>dashboards ;
 		try{
@@ -51,7 +51,7 @@ public class DashboardApi extends ApiBase{
 
 	public Dashboard getDashboard(String id)throws ApiException{
 
-		String dashboardJson = RestClient.performGETOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/"+ id);
+		String dashboardJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id);
 
 		Dashboard dashboard = new Dashboard();
 
@@ -68,11 +68,27 @@ public class DashboardApi extends ApiBase{
 		params.put("title", title);
 		params.put("space_id", spaceId);
 
-		String responseJson = RestClient.performGETOperation(getAuthToken("3.0"), apiSuffix_3_0, params);
+		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0, params);
 
 		try{
 			List<Dashboard> searchResults = MappingUtils.getCollectionFromJson(responseJson, Dashboard.class);
 			return searchResults;
+		}catch(Exception e){
+			throw new ApiException("Unable to parse response from call");
+		}
+
+	}
+
+	public Dashboard createDashboard(String title, String spaceId){
+
+		String jsonRequest = "{\"title\":\""+ title +"\",\"space_id\":\""+ spaceId +"\"}";
+
+		String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0, jsonRequest, new HashMap());
+
+		try{
+			Dashboard dashboard = new Dashboard();
+			MappingUtils.populateFromJson(responseJson, dashboard);
+			return dashboard;
 		}catch(Exception e){
 			throw new ApiException("Unable to parse response from call");
 		}

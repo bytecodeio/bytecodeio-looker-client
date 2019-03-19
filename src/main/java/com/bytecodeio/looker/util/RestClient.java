@@ -19,6 +19,8 @@ import org.apache.http.client.utils.URIBuilder;
 
 public class RestClient {
 
+	static final int[] SUCCESS_RESPONSE_CODE_CRITERIA = {200};
+
 	public static String performPOSTOperation(String authToken, String apiEndpoint, HashMap<String, String>params){
 		return performPOSTOperation(authToken, apiEndpoint, null, params);
 	}
@@ -92,7 +94,67 @@ public class RestClient {
 	}
 
 	public static String performGETOperation(String authToken, String apiEndpoint){
-		return performGETOperation(authToken, apiEndpoint, null);
+		return performGETOperation(authToken, apiEndpoint, new HashMap());
+	}
+
+	public static String performSimpleGETOperation(String endpoint, HashMap<String, String>params, int[] expectedResponseCodes){
+
+		URL url;
+		HttpURLConnection conn=null;
+		OutputStream os;
+		StringBuffer response;
+		BufferedReader br;
+		String output;
+
+		try{
+			String requestUrl = getUrl(endpoint, params);
+
+			url = new URL(requestUrl);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setDoInput(true);
+
+		    conn.connect();
+			response = new StringBuffer();
+
+			System.out.println("Performing GET operation for '"+ endpoint +"'");
+			System.out.println("Response code: "+ conn.getResponseCode());
+
+			boolean expectedResponseCode = false;
+			for(int x=0;x<expectedResponseCodes.length;x++){
+				if(conn.getResponseCode()==expectedResponseCodes[x]){
+					expectedResponseCode = true;
+					break;
+				}
+			}
+
+			if(!expectedResponseCode) {
+				String expCodes = "";
+				for(int x=0;x<expectedResponseCodes.length;x++){
+					expCodes += ","+ expectedResponseCodes;
+				}
+				throw new RuntimeException("Failed : HTTP response code: "+ conn.getResponseCode() +" did not match expected ("+ expCodes +")");
+			}
+
+			if(conn.getResponseCode()==401){
+				return null;
+			}
+
+			br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+			while ((output = br.readLine()) != null) {
+				response.append(output);
+			}
+			System.out.println(response.toString());
+
+			conn.disconnect();
+
+			return response.toString();
+
+		}
+		catch(Exception ex){
+			throw new ApiException("Unable to connect to specified url (exception)...");
+		}
+
 	}
 
 	static String getUrl(String apiEndpoint, HashMap<String, String>params) throws Exception{
@@ -113,7 +175,20 @@ public class RestClient {
 		return ub.toString();
 	}
 
+	/*
 	public static String performGETOperation(String authToken, String apiEndpoint, HashMap<String, String>params){
+		//return performGETOperation(authToken, apiEndpoint, params, true);
+
+
+	}
+	*/
+
+	public static String performGETOperation(String authToken, String apiEndpoint, HashMap<String, String>params){
+		int[] validResponseCodes = {200,404};
+		return performGETOperation(authToken, apiEndpoint, params, validResponseCodes);
+	}
+
+	public static String performGETOperation(String authToken, String apiEndpoint, HashMap<String, String>params, int[] expectedResponseCodes){
 		URL url;
 		HttpURLConnection conn=null;
 		OutputStream os;
@@ -137,9 +212,26 @@ public class RestClient {
 		    conn.connect();
 			response = new StringBuffer();
 
-			if (conn.getResponseCode() != 200) {
-				throw new RuntimeException("Failed : HTTP error code : "
-						+ conn.getResponseCode());
+			System.out.println("Response code is '"+ conn.getResponseCode() +"'");
+
+			boolean expectedResponseCode = false;
+			for(int x=0;x<expectedResponseCodes.length;x++){
+				if(conn.getResponseCode()==expectedResponseCodes[x]){
+					expectedResponseCode = true;
+					break;
+				}
+			}
+
+			if(!expectedResponseCode) {
+				String expCodes = "";
+				for(int x=0;x<expectedResponseCodes.length;x++){
+					expCodes += ","+ expectedResponseCodes;
+				}
+				throw new RuntimeException("Failed : HTTP response code: "+ conn.getResponseCode() +" did not match expected ("+ expCodes +")");
+			}
+
+			if(conn.getResponseCode()!=200){
+				return null;
 			}
 
 			br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
