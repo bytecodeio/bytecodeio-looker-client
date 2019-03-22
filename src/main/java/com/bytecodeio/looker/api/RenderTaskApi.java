@@ -43,8 +43,8 @@ public class RenderTaskApi extends ApiBase{
 		params.put("height", "1024");
 		params.put("pdf_paper_size", "a4");
 
-		//String responseJson = RestClient.performPOSTOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/dashboards/"+ dashboardId +"/"+ format +"?width=1000&height=1024&pdf_paper_size=a4","{}");
-		String responseJson = RestClient.performPOSTOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/dashboards/"+ dashboardId +"/"+ format ,"{\"dashboard_filters\":\"account_id=67923\"}", params);
+		//String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/dashboards/"+ dashboardId +"/"+ format +"?width=1000&height=1024&pdf_paper_size=a4","{}");
+		String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/dashboards/"+ dashboardId +"/"+ format ,"{\"dashboard_filters\":\"account_id=67923\"}", params);
 
 		RenderTask renderTask = new RenderTask();
 		try{
@@ -62,7 +62,7 @@ public class RenderTaskApi extends ApiBase{
 		params.put("height", "1024");
 		params.put("pdf_paper_size", "a4");
 
-		String responseJson = RestClient.performPOSTOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/looks/"+ lookId +"/"+ format, params);
+		String responseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/looks/"+ lookId +"/"+ format, params);
 		RenderTask renderTask = new RenderTask();
 		try{
 			MappingUtils.populateFromJson(responseJson, renderTask);
@@ -75,7 +75,7 @@ public class RenderTaskApi extends ApiBase{
 
 	RenderTask getRenderTask(String id)throws ApiException{
 
-		String responseJson = RestClient.performGETOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/"+ id);
+		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id);
 
 		RenderTask renderTask = new RenderTask();
 		try{
@@ -89,7 +89,7 @@ public class RenderTaskApi extends ApiBase{
 
 	byte[]getRenderTaskResult(String renderTaskId)throws ApiException{
 
-		byte[] responseBytes = RestClient.performBinaryGETOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/"+ renderTaskId +"/results");
+		byte[] responseBytes = RestClient.performBinaryGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ renderTaskId +"/results");
 
 		return responseBytes;
 	}

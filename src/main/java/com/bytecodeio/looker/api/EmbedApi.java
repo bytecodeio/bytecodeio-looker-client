@@ -14,11 +14,11 @@ import com.bytecodeio.looker.util.Config;
 public class EmbedApi extends ApiBase{
 
 	public static final String STRING_FORMAT =  "UTF-8";
-	
+
 	String jsonFormat(String val){
     	return "\""+ val +"\"";
     }
-	
+
 	static String getUserAttributes(String accountId){
 		if(accountId==null){
 			return "{}";
@@ -27,6 +27,8 @@ public class EmbedApi extends ApiBase{
     }
 
 	static String encodeString(String stringToEncode, String secret) throws Exception {
+        System.out.println(stringToEncode + " : " + secret);
+
         byte[] keyBytes = secret.getBytes();
         SecretKeySpec signingKey = new SecretKeySpec(keyBytes, "HmacSHA1");
         Mac mac = Mac.getInstance("HmacSHA1");
@@ -34,11 +36,11 @@ public class EmbedApi extends ApiBase{
         byte[] rawHmac = Base64.getEncoder().encode(mac.doFinal(stringToEncode.getBytes("UTF-8")));
         return new String(rawHmac, "UTF-8");
     }
-	
+
 	public String getDashboardEmbedUrl(String firstName, String lastName, String externalUserId, String dashboardId, String models)throws Exception{
 		return getEmbedUrl(firstName, lastName, externalUserId, "/embed/dashboards/"+ dashboardId, models);
 	}
-	
+
 	String jsonFormatArray(String val){
     	StringBuilder sb = new StringBuilder();
     	String[] splitValues = val.split(",");
@@ -50,44 +52,42 @@ public class EmbedApi extends ApiBase{
     	}
     	return "["+ sb.toString() +"]";
     }
-	
+
 	String getEmbedUrl(String firstName, String lastName, String externalUserID, String embedURL, String models)throws Exception{
         //TODO: Externalize permissions
-		String permissions = "[\"access_data\",\"see_looks\",\"see_user_dashboards\",\"explore\"]";
+		String permissions = "[\"see_user_dashboards\",\"see_lookml_dashboards\",\"access_data\",\"see_looks\",\"see_drill_overlay\",\"download_without_limit\",\"save_content\"]";
 		String sessionLength = "600";
 		String accessFilters = "{}";  // converted to JSON Object of Objects
 		String groupIDs = "[]"; // converted to JSON array, can be set to null (value, not JSON) for no groups
 		String externalGroupID = "\"\"";  // converted to JSON string
 		String forceLoginLogout = "true"; // converted to JSON bool
 		String userAttributes = getUserAttributes(externalUserID);
-		
-		userAttributes = "{}"; //??
-		
+
 		Calendar cal = Calendar.getInstance();
 		SecureRandom random = new SecureRandom();
 		String nonce = "\"" + (new BigInteger(130, random).toString(32)) + "\"";
 		String time = Long.toString(cal.getTimeInMillis() / 1000L);
 		String fullEmbedPath = "/login/embed/" + java.net.URLEncoder.encode(embedURL, STRING_FORMAT);
-		
+        String userIDFormatted = "\"" + externalUserID.toString() + "\"";  // converted to JSON string
 		//models = "[\"popular_names\"]"; // converted to JSON array
-		
+
 		String formattedModels = jsonFormatArray(models);
-		
+
 		//String urlToSign = formatUrlToSign(Config.CONFIG_HOST, fullEmbedPath, nonce, time, sessionLength, jsonFormat(externalUserID), permissions, jsonFormatArray(models), groupIDs, externalGroupID, userAttributes, accessFilters);
 		//String signature = encodeString(urlToSign, Config.CONFIG_EMBED_SECRET_ID);
-        
+
 		//String signedURL = getSignedUrl(nonce, time, sessionLength, jsonFormat(externalUserID), permissions, jsonFormatArray(models), accessFilters, jsonFormat(firstName), jsonFormat(lastName), groupIDs, externalGroupID, userAttributes, forceLoginLogout, signature);
-        
-		
+
+
 		models = jsonFormatArray(models);
-		
+
 		String urlToSign = "";
         urlToSign += Config.CONFIG_HOST + "\n";
         urlToSign += fullEmbedPath + "\n";
         urlToSign += nonce + "\n";
         urlToSign += time + "\n";
         urlToSign += sessionLength + "\n";
-        urlToSign += externalUserID + "\n";
+        urlToSign += userIDFormatted + "\n";
         urlToSign += permissions + "\n";
         urlToSign += formattedModels + "\n";
         urlToSign += groupIDs + "\n";
@@ -95,26 +95,25 @@ public class EmbedApi extends ApiBase{
         urlToSign += userAttributes +"\n";
         urlToSign += accessFilters;
 
-        String signature = encodeString(urlToSign, Config.getConfig().CONFIG_EMBED_SECRET_ID);
-		
-		
+        //String signature = encodeString(urlToSign, Config.getConfig().CONFIG_SECRET_KEY);
+        String signature = encodeString(urlToSign, "b29629bdcde937ae46da6d9b6ae1aa7a5d649af4cfbbaba4524c6a4829418b1e");
+
 		String signedURL = "nonce=" + java.net.URLEncoder.encode(nonce, "UTF-8") +
 	            "&time=" + java.net.URLEncoder.encode(time, "UTF-8") +
 	            "&session_length=" + java.net.URLEncoder.encode(sessionLength, "UTF-8") +
-	            "&external_user_id=" + java.net.URLEncoder.encode(externalUserID,"UTF-8") +
+	            "&external_user_id=" + java.net.URLEncoder.encode(userIDFormatted,"UTF-8") +
 	            "&permissions=" + java.net.URLEncoder.encode(permissions, "UTF-8") +
 	            "&models=" + java.net.URLEncoder.encode(formattedModels, "UTF-8") +
-	            "&access_filters=" + java.net.URLEncoder.encode(accessFilters, "UTF-8") +
-	            "&signature=" + java.net.URLEncoder.encode(signature, "UTF-8") +
-	            "&first_name=" + java.net.URLEncoder.encode(jsonFormat(firstName), "UTF-8") +
-	            "&last_name=" + java.net.URLEncoder.encode(jsonFormat(lastName), "UTF-8") +
 	            "&group_ids=" + java.net.URLEncoder.encode(groupIDs, "UTF-8") +
 	            "&external_group_id=" + java.net.URLEncoder.encode(externalGroupID, "UTF-8") +
-	            "&user_attributes=" + java.net.URLEncoder.encode(getUserAttributes(null), "UTF-8") +
-	            "&force_logout_login=" + java.net.URLEncoder.encode(forceLoginLogout, "UTF-8");
-		
-		
+	            "&user_attributes=" + java.net.URLEncoder.encode(userAttributes, "UTF-8") +
+	            "&access_filters=" + java.net.URLEncoder.encode(accessFilters, "UTF-8") +
+	            "&first_name=" + java.net.URLEncoder.encode(jsonFormat(firstName), "UTF-8") +
+                "&last_name=" + java.net.URLEncoder.encode(jsonFormat(lastName), "UTF-8") +
+                "&force_logout_login=" + java.net.URLEncoder.encode(forceLoginLogout, "UTF-8") +
+	            "&signature=" + java.net.URLEncoder.encode(signature, "UTF-8");
+
         return "https://"+ Config.getConfig().CONFIG_HOST + fullEmbedPath + '?' + signedURL;
 	}
-	
+
 }

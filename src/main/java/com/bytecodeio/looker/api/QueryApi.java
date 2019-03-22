@@ -28,13 +28,13 @@ public class QueryApi extends ApiBase{
 	 */
 	public String executeQueryRenderTaskForTextContent(Long queryId, String format)throws ApiException{
 		String requestUrl =  apiSuffix_3_0 +"/"+ queryId +"/run/"+ format;
-		String responseHtml = RestClient.performGETOperation(getAuthToken("3.0"), requestUrl);
+		String responseHtml = RestClient.performGETOperation(getAuthToken(), requestUrl);
 		return responseHtml;
 	}
 
 	public byte[] executeQueryRenderTaskForBinaryContent(Long queryId, String format)throws ApiException{
 		String requestUrl =  apiSuffix_3_0 +"/"+ queryId +"/run/"+ format;
-		byte[] responseByte = RestClient.performBinaryGETOperation(getAuthToken("3.0"), requestUrl);
+		byte[] responseByte = RestClient.performBinaryGETOperation(getAuthToken(), requestUrl);
 		return responseByte;
 	}
 }

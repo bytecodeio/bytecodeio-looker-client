@@ -28,7 +28,7 @@ public class LookApi extends ApiBase{
 
 	public Look getLook(String id){
 
-		String jsonResponse = RestClient.performGETOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/"+ id);
+		String jsonResponse = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id);
 		Look look = new Look();
 		try{
 			MappingUtils.populateFromJson(jsonResponse, look);
@@ -55,7 +55,7 @@ public class LookApi extends ApiBase{
 			throw new ApiException("Unable to map object to json format");
 		}
 
-		String jsonResponse = RestClient.performPOSTOperation(getAuthToken("3.0"), apiSuffix_3_0, lookJson, null);
+		String jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0, lookJson, null);
 		look = new Look();
 
 		try{
@@ -89,7 +89,7 @@ public class LookApi extends ApiBase{
 	}
 
 	public void deleteLook(Long lookId){
-		RestClient.performDELETEOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/"+ lookId);
+		RestClient.performDELETEOperation(getAuthToken(), apiSuffix_3_0 +"/"+ lookId);
 	}
 
 	public List<Look>searchLooks(String title, String spaceId){
@@ -101,7 +101,7 @@ public class LookApi extends ApiBase{
 		String responseJson;
 		String reqUrl = apiSuffix_3_0 +"/search";
 		try{
-			responseJson = RestClient.performGETOperation(getAuthToken("3.0"), reqUrl, params);
+			responseJson = RestClient.performGETOperation(getAuthToken(), reqUrl, params);
 			System.out.println(responseJson);
 			List<Look>searchResults = MappingUtils.getCollectionFromJson(responseJson, Look.class);
 			return searchResults;

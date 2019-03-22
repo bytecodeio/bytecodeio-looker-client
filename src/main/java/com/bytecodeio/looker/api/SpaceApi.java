@@ -23,7 +23,7 @@ public class SpaceApi extends ApiBase{
 
 	public Space getSpace(String id){
 
-		String responseJson = RestClient.performGETOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/"+ id);
+		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id);
 
 		try{
 			Space space = new Space();
@@ -37,7 +37,7 @@ public class SpaceApi extends ApiBase{
 
 	public List<Look>getLooksForSpace(String spaceId){
 
-		String responseJson = RestClient.performGETOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/"+ spaceId +"/looks");
+		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ spaceId +"/looks");
 
 		try{
 			List<Look>results = MappingUtils.getCollectionFromJson(responseJson, Look.class);
@@ -54,7 +54,7 @@ public class SpaceApi extends ApiBase{
 		HashMap<String, String> params = new HashMap();
 		params.put("name", name);
 
-		String responseJson = RestClient.performGETOperation(getAuthToken("3.0"), apiSuffix_3_0 +"/search", params);
+		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/search", params);
 
 		try{
 			List<Space> spaces = MappingUtils.getCollectionFromJson(responseJson, Space.class);
