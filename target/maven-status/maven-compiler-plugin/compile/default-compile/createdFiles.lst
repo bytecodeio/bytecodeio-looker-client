@@ -1,5 +1,6 @@
 com/bytecodeio/looker/util/Config.class
 com/bytecodeio/looker/model/Look.class
+com/bytecodeio/looker/YapstoneCalls.class
 com/bytecodeio/looker/api/UserApi.class
 com/bytecodeio/looker/TestClientOperations.class
 com/bytecodeio/looker/api/RenderTaskApi.class

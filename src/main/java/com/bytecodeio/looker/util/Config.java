@@ -23,7 +23,6 @@ public class Config {
 	public static String CONFIG_API_BASE_3_1 = "";
 	public static String CONFIG_TEMPLATE_FOLDER_NAME = "";
 	public static String[] CONFIG_DEFAULT_DASHBOARD_LOOKS = {};
-	public static String CONFIG_DEFAULT_DASHBOARD_NAME="";
 	/** API key used for generating embed urls. */
 	public static String CONFIG_EMBED_SECRET_ID = "";
 	/** Host name of looker instance (bytecode.looker.com for example...) */
