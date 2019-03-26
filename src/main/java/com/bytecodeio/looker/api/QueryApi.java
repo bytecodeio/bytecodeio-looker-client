@@ -37,4 +37,6 @@ public class QueryApi extends ApiBase{
 		byte[] responseByte = RestClient.performBinaryGETOperation(getAuthToken(), requestUrl);
 		return responseByte;
 	}
+	
+	 
 }

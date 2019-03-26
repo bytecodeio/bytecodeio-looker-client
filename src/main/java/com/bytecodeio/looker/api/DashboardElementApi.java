@@ -45,7 +45,7 @@ public class DashboardElementApi extends ApiBase{
 			newElement.setLookId(lookCopy.getId());
 			newElement.setDashboardId(dashboardId);
 			newElement.setTitle(lookCopy.getTitle());
-			newElement.setType("vis");
+			newElement.setType("vis");//TODO: Confirm this needs to be hard coded.
 
 			Query newQuery = new Query();
             newQuery = lookCopy.getQuery();
