@@ -1,10 +1,10 @@
 package com.bytecodeio.looker.api;
 
-import com.bytecodeio.looker.model.RenderTask;
+import java.util.HashMap;
+
+import com.bytecodeio.looker.util.RestClient;
 import com.bytecodeio.looker.util.ApiException;
 import com.bytecodeio.looker.util.Config;
-import com.bytecodeio.looker.util.MappingUtils;
-import com.bytecodeio.looker.util.RestClient;
 
 public class QueryApi extends ApiBase{
 
@@ -38,5 +38,9 @@ public class QueryApi extends ApiBase{
 		return responseByte;
 	}
 	
+	public String executeQuery(String query)throws ApiException{
+		String queryResponseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/run/json", query, new HashMap());
+		return queryResponseJson;
+	}
 	 
 }

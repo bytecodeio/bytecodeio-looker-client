@@ -1,11 +1,8 @@
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Dashboard.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/MappingUtils.java
-/Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/TestEmbedUrlOperation.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/QueryApi.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/RenderTaskApi.java
-/Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/SpireonPortalOperations.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/RestClient.java
-/Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/YapstoneCalls.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Query.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Space.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/FieldSelectionBuilder.java
@@ -15,7 +12,6 @@
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/AuthToken.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/UserApi.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/Config.java
-/Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/TestClientOperations.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Look.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/ApiException.java
 /Users/jefe/bytecodeio/repos/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/UniqueTitleFormatter.java
