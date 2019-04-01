@@ -110,4 +110,9 @@ public class LookApi extends ApiBase{
 			throw new ApiException("Unable to parse response from call for GET opereation '"+ reqUrl +"'");
 		}
 	}
+	
+	public String runLook(String id, String format){
+		String jsonResponse = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id +"/run/"+ format);
+		return jsonResponse;
+	}
 }

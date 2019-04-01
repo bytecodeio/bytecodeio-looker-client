@@ -51,5 +51,15 @@ public class Config {
 		Config.CONFIG_DEFAULT_DASHBOARD_LOOKS = defaultDashboardLooks;
 		
 	}
+	
+	public static void getConfigFromSystemProperties(Config config){
+		
+		config.CONFIG_API_KEY=System.getProperty("looker-api-key");
+		config.CONFIG_SECRET_KEY=System.getProperty("looker-secret-key");
+		config.CONFIG_API_BASE_3_0 = System.getProperty("looker-api-3_0");
+		config.CONFIG_API_BASE_3_1 = System.getProperty("looker-api_3_1");
+		config.CONFIG_EMBED_SECRET_ID = System.getProperty("looker-embed-id");
+		config.CONFIG_HOST = System.getProperty("looker-host");
+	}
 
 }
