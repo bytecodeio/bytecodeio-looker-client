@@ -353,4 +353,71 @@ public class RestClient {
 		}
 	}
 
+	public static String performPUTOperation(String authToken, String apiEndpoint, String jsonPostBody, HashMap<String, String>params){
+		URL url;
+		HttpURLConnection conn=null;
+		StringBuffer response;
+		BufferedReader br;
+		String output;
+		String requestUrl = null;
+		try{
+
+			System.out.println("Api endpoint: "+ apiEndpoint);
+
+			requestUrl = getUrl(apiEndpoint, params);
+
+			System.out.println("Requesting URL: "+ requestUrl);
+
+			url = new URL(requestUrl);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("PUT");
+			if(authToken!=null){
+				conn.setDoInput(true);
+				conn.setRequestProperty("Authorization", "token "+ authToken);
+			}
+			else{
+				conn.setDoInput(true);
+			}
+
+			if(jsonPostBody!=null){
+
+				conn.setRequestProperty("Content-Type", "application/json");
+
+				conn.setDoOutput(true);
+				OutputStream outputStream = conn.getOutputStream();
+				outputStream.write(jsonPostBody.getBytes("UTF-8"));
+				outputStream.flush();
+			}
+
+		    conn.connect();
+			response = new StringBuffer();
+			System.out.println(conn.getResponseCode());
+
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ conn.getResponseCode());
+			}
+
+			br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+			while ((output = br.readLine()) != null) {
+				response.append(output);
+			}
+
+			conn.disconnect();
+
+			return response.toString();
+		}
+		catch(MalformedURLException m){
+			throw new ApiException("Unable to connect to malformed url...");
+		}
+		catch( ProtocolException p){
+			throw new ApiException("Unable to connect to specified url (protocol exception)...");
+		}
+		catch(IOException io){
+			throw new ApiException("Unable to connect to specified url (io exception)..."+ requestUrl);
+		}
+		catch(Exception ex){
+			throw new ApiException("Unable to connect to specified url (exception)..."+ requestUrl + jsonPostBody + ex.toString());
+		}
+	}
 }
