@@ -6,32 +6,35 @@ public class DashboardElement {
 
 	@JsonProperty("id")
 	String id;
-	
+
 	@JsonProperty("dashboard_id")
 	private String dashboardId = null;
-	
+
 	@JsonProperty("look_id")
 	private String lookId = null;
-	
+
 	@JsonProperty("type")
 	private String type;
-	
+
 	@JsonProperty("title")
 	private String title;
-	
+
+	@JsonProperty("subtitle_text")
+    private String subtitleText;
+
 	@JsonProperty("look")
 	private Look look;
-	
+
 	public DashboardElement(){
-		
+
 	}
-	
+
 	public DashboardElement(String id, String title, String type){
 		this.id = id;
 		this.title = title;
-		this.type = type; 
+		this.type = type;
 	}
-	
+
 	public String toString(){
 		return "id: "+ id +",title: "+ title +", type: "+ type;
 	}
@@ -76,6 +79,36 @@ public class DashboardElement {
 		this.title = title;
 	}
 
+    public String getSubtitleText() {
+        return subtitleText;
+    }
+
+    public String findSubtitle() {
+        if (subtitleText == null) {
+            return "";
+        } else {
+        	if (subtitleText.contains("hard_braking")) {
+                return "Hard Braking";
+            } else if (subtitleText.contains("hard_acceleration")) {
+                return "Hard Acceleration";
+            } else if (subtitleText.contains("idling")) {
+                return "Idling";
+            } else if (subtitleText.contains("distance_traveled")) {
+                return "Distance Traveled";
+            } else if (subtitleText.contains("speed_threshold")) {
+                return "Speed Threshold";
+            } else if (subtitleText.contains("posted_speed")) {
+                return "Posted Speed";
+    		} else {
+    		    return "";
+    		}
+    	}
+    }
+
+    public void setSubtitleText(String subtitleText) {
+        this.subtitleText = subtitleText;
+    }
+
 	public Look getLook() {
 		return look;
 	}
@@ -83,5 +116,5 @@ public class DashboardElement {
 	public void setLook(Look look) {
 		this.look = look;
 	}
-	
+
 }

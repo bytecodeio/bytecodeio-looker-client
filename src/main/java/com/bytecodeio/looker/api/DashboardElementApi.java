@@ -32,7 +32,7 @@ public class DashboardElementApi extends ApiBase{
 	 *
 	 * @return
 	 */
-	public DashboardElement addLookToDefaultDashboard(String lookId, String dashboardId, String dateRange)throws ApiException{
+	public DashboardElement addLookToDefaultDashboard(String lookId, String dashboardId, String dateRange, String titleRef)throws ApiException{
 		String jsonResponse;
 
 		//First a copy of the selected look must be copied into the current user's space.
@@ -46,6 +46,7 @@ public class DashboardElementApi extends ApiBase{
 			newElement.setDashboardId(dashboardId);
 			newElement.setTitle(lookCopy.getTitle());
 			newElement.setType("vis");//TODO: Confirm this needs to be hard coded.
+			newElement.setSubtitleText(titleRef);
 
 			Query newQuery = new Query();//TODO: This has no impact on dashboard element.... Should remove..
             newQuery = lookCopy.getQuery();
@@ -55,7 +56,7 @@ public class DashboardElementApi extends ApiBase{
 
 			try{
 				String newElementJson = MappingUtils.serializeToJson(newElement);
-				jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1, newElementJson, null);
+				jsonResponse = RestClient.performPOSTOperation(getAuthToken_3_1(), apiSuffix_3_1, newElementJson, null);
 				newElement = new DashboardElement();
 				MappingUtils.populateFromJson(jsonResponse, newElement);
 			}
@@ -65,14 +66,14 @@ public class DashboardElementApi extends ApiBase{
 
 		return newElement;
 	}
-	
+
 	/**
-	 *  Add a look to a dashboard in the same space. 
-	 * 
+	 *  Add a look to a dashboard in the same space.
+	 *
 	 * @param dashboardId
 	 * @return
 	 */
-	public DashboardElement addLookToDashboard(String dashboardId, Look look, String title, String visualizationType){
+	public DashboardElement addLookToDashboard(String dashboardId, Look look, String title, String visualizationType, String titleRef){
 		Dashboard dashBoard = dashboardApi.getDashboard(dashboardId);
 		LookApi lookApi = new LookApi();
 		DashboardElement newElement = new DashboardElement();
@@ -80,17 +81,18 @@ public class DashboardElementApi extends ApiBase{
 		newElement.setDashboardId(dashboardId);
 		newElement.setTitle(title);
 		newElement.setType(visualizationType);//TODO: Confirm this needs to be hard coded.
-		
+		newElement.setSubtitleText(titleRef);
+
 		try{
 			String jsonResponse;
 			String newElementJson = MappingUtils.serializeToJson(newElement);
-			jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1, newElementJson, null);
+			jsonResponse = RestClient.performPOSTOperation(getAuthToken_3_1(), apiSuffix_3_1, newElementJson, null);
 			newElement = new DashboardElement();
 			MappingUtils.populateFromJson(jsonResponse, newElement);
 			return newElement;
 		}
 		catch(Exception e){
-			throw new ApiException("Unable to parse response from call");
+			throw new ApiException("Unable to parse response from call: " + e.toString());
 		}
 	}
 
@@ -136,7 +138,7 @@ public class DashboardElementApi extends ApiBase{
 		}
 		return elements;
 	}
-	
+
 	public DashboardElement getDashboardElement(Long dashboardElementId){
 		String jsonResponse = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElementId);
 		DashboardElement tile = new DashboardElement();
@@ -147,20 +149,20 @@ public class DashboardElementApi extends ApiBase{
 			throw new ApiException("Unable to parse response from call");
 		}
 	}
-	
+
 	public DashboardElement updateDashboardElement(DashboardElement dashboardElement){
-		
+
 		//DashboardElement tile = new DashboardElement();
 		try{
-			
+
 			String dashboardElementJson = MappingUtils.serializeToJson(dashboardElement);
-			
+
 			System.out.println("Update dashboard element:");
 			System.out.println(dashboardElementJson);
-			
+
 			String jsonResponse = RestClient.performPUTOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElement.getId(), dashboardElementJson, new HashMap());
-			//String jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElement.getId());	
-			
+			//String jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElement.getId());
+
 			MappingUtils.populateFromJson(jsonResponse, dashboardElement);
 			return dashboardElement;
 		}catch(Exception e){
