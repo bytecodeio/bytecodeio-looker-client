@@ -158,12 +158,12 @@ public class DashboardElementApi extends ApiBase{
 			System.out.println("Update dashboard element:");
 			System.out.println(dashboardElementJson);
 			
-			String jsonResponse = RestClient.performPUTOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElement.getId(), dashboardElementJson, new HashMap());
-			//String jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElement.getId());	
+			String jsonResponse = RestClient.performPATCHOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElement.getId(), dashboardElementJson, new HashMap());
 			
 			MappingUtils.populateFromJson(jsonResponse, dashboardElement);
 			return dashboardElement;
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new ApiException("Unable to parse response from call");
 		}
 	}

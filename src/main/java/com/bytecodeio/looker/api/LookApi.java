@@ -115,4 +115,19 @@ public class LookApi extends ApiBase{
 		String jsonResponse = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id +"/run/"+ format);
 		return jsonResponse;
 	}
+	
+	public Look updateLook(Look look){
+		
+		String lookJson;
+		String reqUrl = apiSuffix_3_0 +"/"+ look.getId();
+		try{
+			lookJson = MappingUtils.serializeToJson(look);
+			String jsonResponse = RestClient.performPATCHOperation(getAuthToken(), reqUrl, lookJson, new HashMap());
+			MappingUtils.populateFromJson(jsonResponse, look);
+			return look;
+		}catch(Exception e){
+			throw new ApiException("Unable to parse response from call");
+		}
+		
+	}
 }
