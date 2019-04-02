@@ -1,8 +1,6 @@
 com/bytecodeio/looker/util/Config.class
 com/bytecodeio/looker/model/Look.class
-com/bytecodeio/looker/YapstoneCalls.class
 com/bytecodeio/looker/api/UserApi.class
-com/bytecodeio/looker/TestClientOperations.class
 com/bytecodeio/looker/api/RenderTaskApi.class
 com/bytecodeio/looker/model/AuthToken.class
 com/bytecodeio/looker/util/ApiException.class
@@ -16,7 +14,6 @@ com/bytecodeio/looker/model/LookModel.class
 com/bytecodeio/looker/api/DashboardApi.class
 com/bytecodeio/looker/model/VisConfig.class
 com/bytecodeio/looker/util/FieldSelectionBuilder.class
-com/bytecodeio/looker/SpireonPortalOperations.class
 com/bytecodeio/looker/api/DashboardElementApi.class
 com/bytecodeio/looker/util/UniqueTitleFormatter.class
 com/bytecodeio/looker/api/QueryApi.class
@@ -25,5 +22,4 @@ com/bytecodeio/looker/model/Query.class
 com/bytecodeio/looker/api/SpaceApi.class
 com/bytecodeio/looker/api/EmbedApi.class
 com/bytecodeio/looker/util/MappingUtils.class
-com/bytecodeio/looker/TestEmbedUrlOperation.class
 com/bytecodeio/looker/api/LookApi.class

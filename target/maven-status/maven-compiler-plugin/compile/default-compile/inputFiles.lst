@@ -3,8 +3,6 @@
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/QueryApi.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/MappingUtils.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/Look.java
-/Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/TestEmbedUrlOperation.java
-/Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/SpireonPortalOperations.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/Config.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/RenderTaskApi.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/EmbedApi.java
@@ -19,8 +17,6 @@
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/DashboardElement.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/api/UserApi.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/ApiException.java
-/Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/YapstoneCalls.java
-/Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/TestClientOperations.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/UniqueTitleFormatter.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/util/RestClient.java
 /Development/bytecodeio-looker-client/src/main/java/com/bytecodeio/looker/model/LookModel.java
