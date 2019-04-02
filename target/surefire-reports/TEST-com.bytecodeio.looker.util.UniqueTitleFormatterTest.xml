@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="10.14.3"/>
+    <property name="os.version" value="10.14.4"/>
     <property name="library.jansi.path" value="/usr/local/Cellar/maven/3.6.0/libexec/lib/jansi-native"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="user.home" value="/Users/jamestorre"/>
@@ -65,6 +65,6 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="confirmDuclicateTitleExists" time="0.001"/>
-  <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="confirmProducesUniqueTitle" time="0.001"/>
-  <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="getHigestCopyNumber" time="0.001"/>
+  <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="confirmProducesUniqueTitle" time="0.002"/>
+  <testcase classname="com.bytecodeio.looker.util.UniqueTitleFormatterTest" name="getHigestCopyNumber" time="0"/>
 </testsuite>
