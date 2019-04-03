@@ -139,7 +139,7 @@ public class DashboardElementApi extends ApiBase{
 		return elements;
 	}
 
-	public DashboardElement getDashboardElement(Long dashboardElementId){
+	public DashboardElement getDashboardElement(String dashboardElementId){
 		String jsonResponse = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElementId);
 		DashboardElement tile = new DashboardElement();
 		try{
