@@ -19,11 +19,17 @@ public class DashboardElement {
 	@JsonProperty("title")
 	private String title;
 
+	@JsonProperty("title_text")
+    private String titleText;
+
 	@JsonProperty("subtitle_text")
     private String subtitleText;
 
 	@JsonProperty("look")
 	private Look look;
+
+    @JsonProperty("query")
+    private Query query;
 
 	public DashboardElement(){
 
@@ -79,6 +85,14 @@ public class DashboardElement {
 		this.title = title;
 	}
 
+    public String getTitleText() {
+		return titleText;
+	}
+
+	public void setTitleText(String titleText) {
+		this.titleText = titleText;
+	}
+
     public String getSubtitleText() {
         return subtitleText;
     }
@@ -116,5 +130,13 @@ public class DashboardElement {
 	public void setLook(Look look) {
 		this.look = look;
 	}
+
+	public Query getQuery() {
+        return query;
+    }
+
+    public void setQuery(Query query) {
+        this.query = query;
+    }
 
 }

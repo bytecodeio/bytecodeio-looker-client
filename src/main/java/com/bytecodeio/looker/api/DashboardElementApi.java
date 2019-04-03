@@ -140,7 +140,7 @@ public class DashboardElementApi extends ApiBase{
 	}
 
 	public DashboardElement getDashboardElement(String dashboardElementId){
-		String jsonResponse = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElementId);
+		String jsonResponse = RestClient.performGETOperation(getAuthToken_3_1(), apiSuffix_3_1 +"/"+ dashboardElementId);
 		DashboardElement tile = new DashboardElement();
 		try{
 			MappingUtils.populateFromJson(jsonResponse, tile);
