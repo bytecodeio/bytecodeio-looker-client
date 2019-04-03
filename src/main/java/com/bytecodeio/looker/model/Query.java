@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Query {
 
 	@JsonProperty("id")
-	private int id;
+	private long id;
 
 	@JsonProperty("view")
 	private String view;
@@ -36,11 +36,11 @@ public class Query {
     }
 
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -1,10 +1,17 @@
 package com.bytecodeio.looker.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.bytecodeio.looker.util.RestClient;
+import com.bytecodeio.looker.util.UniqueTitleFormatter;
+import com.bytecodeio.looker.model.Look;
+import com.bytecodeio.looker.model.Query;
+import com.bytecodeio.looker.model.Space;
 import com.bytecodeio.looker.util.ApiException;
 import com.bytecodeio.looker.util.Config;
+import com.bytecodeio.looker.util.MappingUtils;
 
 public class QueryApi extends ApiBase{
 
@@ -42,5 +49,24 @@ public class QueryApi extends ApiBase{
 		String queryResponseJson = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0 +"/run/json", query, new HashMap());
 		return queryResponseJson;
 	}
-	 
+	
+	public Query createQuery(Query query){
+		String queryJson;
+		
+		try{
+			queryJson = MappingUtils.serializeToJson(query);
+		}catch(Exception e){
+			throw new ApiException("Unable to map object to json format");
+		}
+
+		String jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0, queryJson, null);
+		
+		try{
+			MappingUtils.populateFromJson(jsonResponse, query);
+		}catch(Exception e){
+			throw new ApiException("Unable to parse response from call");
+		}
+
+		return query;
+	}
 }
