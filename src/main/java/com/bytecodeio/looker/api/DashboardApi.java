@@ -35,10 +35,17 @@ public class DashboardApi extends ApiBase{
 	}
 
 	public List<Dashboard> getDashboardSummaries(String embedUserId)throws ApiException{
+		String[] fields = {"id","title","description"};
+		
+		HashMap<String, String> params = new HashMap();
 
-		String dashboardsJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0);
+		if(fields!=null){
+			params.put("fields", getFieldCriteria(fields));
+		}
+		
+		String dashboardsJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0, params);
 
-		List<Dashboard>dashboards ;
+		List<Dashboard>dashboards;
 		try{
 			dashboards = MappingUtils.getCollectionFromJson(dashboardsJson, Dashboard.class);
 		}
@@ -50,8 +57,18 @@ public class DashboardApi extends ApiBase{
 	}
 
 	public Dashboard getDashboard(String id)throws ApiException{
+		return getDashboard(id, null);
+	}
+	
+	public Dashboard getDashboard(String id, String[] fields)throws ApiException{
 
-		String dashboardJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id);
+		HashMap<String, String> params = new HashMap();
+
+		if(fields!=null){
+			params.put("fields", getFieldCriteria(fields));
+		}
+		
+		String dashboardJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id, params);
 
 		Dashboard dashboard = new Dashboard();
 
@@ -63,6 +80,10 @@ public class DashboardApi extends ApiBase{
 	}
 
 	public List<Dashboard>searchDashboards(String title, String spaceId){
+		return searchDashboards(title, spaceId, null);
+	}
+	
+	public List<Dashboard>searchDashboards(String title, String spaceId, String[] fields){
 
 		HashMap<String, String>params = new HashMap();
 		params.put("title", title);
@@ -131,7 +152,7 @@ public class DashboardApi extends ApiBase{
 			while(true){
 				try{ Thread.sleep(1000); }catch(Exception e){}
 				renderTask = renderApi.getRenderTask(renderTask.getId());
-				System.out.println(renderTask.getStatus());
+				//System.out.println(renderTask.getStatus());
 				if(renderTask.getStatus().equals(RenderTaskApi.RENDER_STATUS_SUCCESS)){
 					break;
 				}

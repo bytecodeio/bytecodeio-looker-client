@@ -1,4 +1,5 @@
 com/bytecodeio/looker/util/UniqueTitleFormatterTest.class
+com/bytecodeio/looker/api/ApiBaseTest.class
 com/bytecodeio/looker/api/RenderTaskApiTest.class
 com/bytecodeio/looker/api/ApiConfigTest.class
 com/bytecodeio/looker/util/MappingUtilsTest.class

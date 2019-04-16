@@ -96,7 +96,7 @@ public class RenderTaskApi extends ApiBase{
 
 	public byte[]downloadDashboard(String format, String dashboardId)throws ApiException{
 		//TDO: Log statement...
-		System.out.println("Rendering dashboard in '"+ format +"' format.");
+		//System.out.println("Rendering dashboard in '"+ format +"' format.");
 		//TODO: Condense methods
 		if(format.equals(DASHBOARD_FORMAT_PDF)){
 			//Request render task for dashboard
@@ -108,7 +108,7 @@ public class RenderTaskApi extends ApiBase{
 			while(rendering){
 				try{ Thread.sleep(RENDER_STATUS_CHECK_DELAY); }catch(Exception e){}
 				renderTask = getRenderTask(renderTask.getId());
-				System.out.println(renderTask.getStatus());
+				//System.out.println(renderTask.getStatus());
 				if(renderTask.getStatus().equals(RENDER_STATUS_SUCCESS)){
 					break;
 				}
@@ -128,7 +128,7 @@ public class RenderTaskApi extends ApiBase{
 			while(rendering){
 				try{ Thread.sleep(RENDER_STATUS_CHECK_DELAY); }catch(Exception e){}
 				renderTask = getRenderTask(renderTask.getId());
-				System.out.println(renderTask.getStatus());
+				//System.out.println(renderTask.getStatus());
 				if(renderTask.getStatus().equals(RENDER_STATUS_SUCCESS)){
 					break;
 				}
@@ -148,7 +148,7 @@ public class RenderTaskApi extends ApiBase{
 			while(rendering){
 				try{ Thread.sleep(RENDER_STATUS_CHECK_DELAY); }catch(Exception e){}
 				renderTask = getRenderTask(renderTask.getId());
-				System.out.println(renderTask.getStatus());
+				//System.out.println(renderTask.getStatus());
 				if(renderTask.getStatus().equals(RENDER_STATUS_SUCCESS)){
 					break;
 				}

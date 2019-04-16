@@ -27,7 +27,7 @@ public class EmbedApi extends ApiBase{
     }
 
 	static String encodeString(String stringToEncode, String secret) throws Exception {
-        System.out.println(stringToEncode + " : " + secret);
+        //System.out.println(stringToEncode + " : " + secret);
 
         byte[] keyBytes = secret.getBytes();
         SecretKeySpec signingKey = new SecretKeySpec(keyBytes, "HmacSHA1");

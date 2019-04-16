@@ -157,8 +157,8 @@ public class DashboardElementApi extends ApiBase{
 
 			String dashboardElementJson = MappingUtils.serializeToJson(dashboardElement);
 
-			System.out.println("Update dashboard element:");
-			System.out.println(dashboardElementJson);
+			//System.out.println("Update dashboard element:");
+			//System.out.println(dashboardElementJson);
 
 			String jsonResponse = RestClient.performPATCHOperation(getAuthToken(), apiSuffix_3_1 +"/"+ dashboardElement.getId(), dashboardElementJson, new HashMap());
 

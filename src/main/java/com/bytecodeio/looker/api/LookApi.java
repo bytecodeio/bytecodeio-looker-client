@@ -27,8 +27,18 @@ public class LookApi extends ApiBase{
 	}
 
 	public Look getLook(String id){
+		return getLook(id, null);
+	}
+	
+	public Look getLook(String id, String[] fields){
 
-		String jsonResponse = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id);
+		HashMap<String, String> params = new HashMap();
+
+		if(fields!=null){
+			params.put("fields", getFieldCriteria(fields));
+		}
+		
+		String jsonResponse = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 +"/"+ id, params);
 		Look look = new Look();
 		try{
 			MappingUtils.populateFromJson(jsonResponse, look);
@@ -39,9 +49,18 @@ public class LookApi extends ApiBase{
 	}
 
 	public Look createLook(Look look){
+		return createLook(look, null);
+	}
+	
+	public Look createLook(Look look, String[] fields){
 		String lookJson;
 		Space space = spaceApi.getSpace(look.getSpaceId());
 
+		HashMap<String, String> params = new HashMap();
+		if(fields!=null){
+			params.put("fields", getFieldCriteria(fields));
+		}
+		
 		List<String>existingTitles = new ArrayList();
 		boolean lookTitleExists = false;
 		for(Look curLook:space.getLooks()){
@@ -55,7 +74,7 @@ public class LookApi extends ApiBase{
 			throw new ApiException("Unable to map object to json format");
 		}
 
-		String jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0, lookJson, null);
+		String jsonResponse = RestClient.performPOSTOperation(getAuthToken(), apiSuffix_3_0, lookJson, params);
 		look = new Look();
 
 		try{
@@ -68,6 +87,10 @@ public class LookApi extends ApiBase{
 	}
 
 	public Look copyLookToSpace(String lookId, String spaceId){
+		return copyLookToSpace(lookId, spaceId, null);
+	}
+	
+	public Look copyLookToSpace(String lookId, String spaceId, String[] fields){
 		String lookJson;
 
 		Look look = getLook(lookId);
@@ -82,8 +105,8 @@ public class LookApi extends ApiBase{
 
 		lookCopy.setSpaceId(spaceId);
 		lookCopy.setId(null);
-
-		look = createLook(lookCopy);
+		
+		look = createLook(lookCopy, fields);
 
 		return look;
 	}
@@ -93,16 +116,24 @@ public class LookApi extends ApiBase{
 	}
 
 	public List<Look>searchLooks(String title, String spaceId){
+		return searchLooks(title, spaceId, null);
+	}
+	
+	public List<Look>searchLooks(String title, String spaceId, String[] fields){
 
 		HashMap<String, String> params = new HashMap();
 		params.put("title", title);
 		params.put("space_id", spaceId);
 
+		if(fields!=null){
+			params.put("fields", getFieldCriteria(fields));
+		}
+		
 		String responseJson;
 		String reqUrl = apiSuffix_3_0 +"/search";
 		try{
 			responseJson = RestClient.performGETOperation(getAuthToken(), reqUrl, params);
-			System.out.println(responseJson);
+			////System.out.println(responseJson);
 			List<Look>searchResults = MappingUtils.getCollectionFromJson(responseJson, Look.class);
 			return searchResults;
 		}
@@ -117,12 +148,22 @@ public class LookApi extends ApiBase{
 	}
 	
 	public Look updateLook(Look look){
+		return updateLook(look, null);
+	}
+	
+	public Look updateLook(Look look, String[] fields){
+		
+		HashMap<String, String> params = new HashMap();
+
+		if(fields!=null){
+			params.put("fields", getFieldCriteria(fields));
+		}
 		
 		String lookJson;
 		String reqUrl = apiSuffix_3_0 +"/"+ look.getId();
 		try{
 			lookJson = MappingUtils.serializeToJson(look);
-			String jsonResponse = RestClient.performPATCHOperation(getAuthToken(), reqUrl, lookJson, new HashMap());
+			String jsonResponse = RestClient.performPATCHOperation(getAuthToken(), reqUrl, lookJson, params);
 			MappingUtils.populateFromJson(jsonResponse, look);
 			return look;
 		}catch(Exception e){

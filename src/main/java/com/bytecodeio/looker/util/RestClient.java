@@ -33,6 +33,9 @@ public class RestClient {
 	}
 
 	public static String performPOSTOperation(String authToken, String apiEndpoint, String jsonPostBody, HashMap<String, String>params){
+		
+		long startTime = System.currentTimeMillis();
+		
 		URL url;
 		HttpURLConnection conn=null;
 		StringBuffer response;
@@ -41,11 +44,11 @@ public class RestClient {
 		String requestUrl = null;
 		try{
 
-			System.out.println("Api endpoint: "+ apiEndpoint);
+			//System.out.println("Api endpoint: "+ apiEndpoint);
 
 			requestUrl = getUrl(apiEndpoint, params);
 
-			System.out.println("Requesting URL: "+ requestUrl);
+			//System.out.println("Requesting URL: "+ requestUrl);
 
 			url = new URL(requestUrl);
 			conn = (HttpURLConnection) url.openConnection();
@@ -70,7 +73,7 @@ public class RestClient {
 
 		    conn.connect();
 			response = new StringBuffer();
-			System.out.println(conn.getResponseCode());
+			//System.out.println(conn.getResponseCode());
 
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
@@ -84,6 +87,7 @@ public class RestClient {
 
 			conn.disconnect();
 
+			System.out.println("Elapsed time for POST operation ("+ apiEndpoint +")  was "+ (System.currentTimeMillis() -  startTime) +")ms");
 			return response.toString();
 		}
 		catch(MalformedURLException m){
@@ -106,6 +110,8 @@ public class RestClient {
 
 	public static String performSimpleGETOperation(String endpoint, HashMap<String, String>params, int[] expectedResponseCodes){
 
+		long startTime = System.currentTimeMillis();
+		
 		URL url;
 		HttpURLConnection conn=null;
 		OutputStream os;
@@ -124,8 +130,8 @@ public class RestClient {
 		    conn.connect();
 			response = new StringBuffer();
 
-			System.out.println("Performing GET operation for '"+ endpoint +"'");
-			System.out.println("Response code: "+ conn.getResponseCode());
+			//System.out.println("Performing GET operation for '"+ endpoint +"'");
+			//System.out.println("Response code: "+ conn.getResponseCode());
 
 			boolean expectedResponseCode = false;
 			for(int x=0;x<expectedResponseCodes.length;x++){
@@ -151,10 +157,11 @@ public class RestClient {
 			while ((output = br.readLine()) != null) {
 				response.append(output);
 			}
-			System.out.println(response.toString());
+			//System.out.println(response.toString());
 
 			conn.disconnect();
 
+			System.out.println("Elapsed time for GET operation ("+ endpoint +")  was "+ (System.currentTimeMillis() -  startTime) +")ms");
 			return response.toString();
 
 		}
@@ -196,6 +203,8 @@ public class RestClient {
 	}
 
 	public static String performGETOperation(String authToken, String apiEndpoint, HashMap<String, String>params, int[] expectedResponseCodes){
+		long startTime = System.currentTimeMillis();
+		
 		URL url;
 		HttpURLConnection conn=null;
 		OutputStream os;
@@ -206,7 +215,7 @@ public class RestClient {
 
 			String requestUrl = getUrl(apiEndpoint, params);
 
-			System.out.println("Performing GET operation for '"+ requestUrl +"'");
+			//System.out.println("Performing GET operation for '"+ requestUrl +"'");
 
 			url = new URL(requestUrl);
 			conn = (HttpURLConnection) url.openConnection();
@@ -219,7 +228,7 @@ public class RestClient {
 		    conn.connect();
 			response = new StringBuffer();
 
-			System.out.println("Response code is '"+ conn.getResponseCode() +"'");
+			//System.out.println("Response code is '"+ conn.getResponseCode() +"'");
 
 			boolean expectedResponseCode = false;
 			for(int x=0;x<expectedResponseCodes.length;x++){
@@ -245,10 +254,10 @@ public class RestClient {
 			while ((output = br.readLine()) != null) {
 				response.append(output);
 			}
-			System.out.println(response.toString());
+			//System.out.println(response.toString());
 
 			conn.disconnect();
-
+			System.out.println("Elapsed time for GET operation ("+ apiEndpoint +")  was "+ (System.currentTimeMillis() -  startTime) +")ms");
 			return response.toString();
 		}
 		catch(URISyntaxException u){
@@ -269,6 +278,9 @@ public class RestClient {
 	}
 
 	public static byte[] performBinaryGETOperation(String authToken, String apiEndpoint){
+		
+		long startTime = System.currentTimeMillis();
+		
 		URL url;
 		HttpURLConnection conn=null;
 		OutputStream os;
@@ -302,7 +314,7 @@ public class RestClient {
 			}
 
 			conn.disconnect();
-
+			System.out.println("Elapsed time for GET operation ("+ apiEndpoint +")  was "+ (System.currentTimeMillis() -  startTime) +")ms");
 			return buffer.toByteArray();
 
 		}
@@ -318,6 +330,9 @@ public class RestClient {
 	}
 
 	public static void performDELETEOperation(String authToken, String apiEndpoint){
+		
+		long startTime = System.currentTimeMillis();
+		
 		URL url;
 		HttpURLConnection conn=null;
 		OutputStream os;
@@ -344,10 +359,10 @@ public class RestClient {
 			while ((output = br.readLine()) != null) {
 				response.append(output);
 			}
-			System.out.println(response.toString());
+			//System.out.println(response.toString());
 
 			conn.disconnect();
-
+			System.out.println("Elapsed time for DELETE operation ("+ apiEndpoint +")  was "+ (System.currentTimeMillis() -  startTime) +")ms");
 		}
 		catch(MalformedURLException m){
 			throw new ApiException("Unable to connect to malformed url...");
@@ -361,6 +376,8 @@ public class RestClient {
 	}
 
 	public static String performPUTOperation(String authToken, String apiEndpoint, String jsonPostBody, HashMap<String, String>params){
+		long startTime = System.currentTimeMillis();
+		
 		URL url;
 		HttpURLConnection conn=null;
 		StringBuffer response;
@@ -369,11 +386,11 @@ public class RestClient {
 		String requestUrl = null;
 		try{
 
-			System.out.println("Api endpoint: "+ apiEndpoint);
+			//System.out.println("Api endpoint: "+ apiEndpoint);
 
 			requestUrl = getUrl(apiEndpoint, params);
 
-			System.out.println("Requesting URL: "+ requestUrl +" (HTTP PUT)");
+			//System.out.println("Requesting URL: "+ requestUrl +" (HTTP PUT)");
 
 			url = new URL(requestUrl);
 			conn = (HttpURLConnection) url.openConnection();
@@ -398,7 +415,7 @@ public class RestClient {
 
 		    conn.connect();
 			response = new StringBuffer();
-			System.out.println("Response code for HTTP PUT method "+ conn.getResponseCode());
+			//System.out.println("Response code for HTTP PUT method "+ conn.getResponseCode());
 
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
@@ -411,7 +428,7 @@ public class RestClient {
 			}
 
 			conn.disconnect();
-
+			System.out.println("Elapsed time for PUT operation ("+ apiEndpoint +")  was "+ (System.currentTimeMillis() -  startTime) +")ms");
 			return response.toString();
 		}
 		catch(MalformedURLException m){
@@ -429,6 +446,8 @@ public class RestClient {
 	}
 	
 	public static String performPATCHOperation(String authToken, String apiEndpoint, String jsonBody, HashMap<String, String>params){
+		long startTime = System.currentTimeMillis();
+		
 		/*
 		URL url;
 		HttpURLConnection conn=null;
@@ -439,11 +458,11 @@ public class RestClient {
 		*/
 		try{
 			/*
-			System.out.println("Api endpoint: '"+ apiEndpoint +"'");
+			//System.out.println("Api endpoint: '"+ apiEndpoint +"'");
 
 			requestUrl = getUrl(apiEndpoint, params);
 
-			System.out.println("Requesting URL: '"+ requestUrl +"' (HTTP PATCH)");
+			//System.out.println("Requesting URL: '"+ requestUrl +"' (HTTP PATCH)");
 
 			url = new URL(requestUrl);
 			conn = (HttpURLConnection) url.openConnection();
@@ -470,7 +489,7 @@ public class RestClient {
 
 		    conn.connect();
 			response = new StringBuffer();
-			System.out.println("Response code for HTTP PATCH method "+ conn.getResponseCode());
+			//System.out.println("Response code for HTTP PATCH method "+ conn.getResponseCode());
 
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
@@ -506,6 +525,7 @@ public class RestClient {
     		while ((line = rd.readLine()) != null) {
     			result.append(line);
     		}
+    		System.out.println("Elapsed time for PATCH operation ("+ apiEndpoint +")  was "+ (System.currentTimeMillis() -  startTime) +")ms");
     		return result.toString();
 			
 		}

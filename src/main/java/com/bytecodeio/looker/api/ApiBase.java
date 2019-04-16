@@ -17,7 +17,7 @@ public class ApiBase {
 	}
 
 	public String getAuthToken()throws ApiException{
-		System.out.println("Requesting auth token (3.0)");
+		//System.out.println("Requesting auth token (3.0)");
 
 		String requestUrl=null;
 		try{
@@ -38,7 +38,7 @@ public class ApiBase {
 	}
 
 	public String getAuthToken_3_1()throws ApiException{
-		System.out.println("Requesting auth token (3.1)");
+		//System.out.println("Requesting auth token (3.1)");
 
 		String requestUrl=null;
 		try{
@@ -67,5 +67,18 @@ public class ApiBase {
 	}
 
 
+	public String getFieldCriteria(String[] fieldCriteria){
+		StringBuilder sb = new StringBuilder();
+		for(String curField : fieldCriteria){
+			sb.append(curField +",");
+		}
+		
+		String result = sb.toString();
+		
+		if(result.endsWith(",")){
+			result = result.substring(0, result.length()-1);
+		}
+		return result;
+	}
 
 }

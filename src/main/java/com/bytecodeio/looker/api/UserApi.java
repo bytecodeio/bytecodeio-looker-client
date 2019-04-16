@@ -16,8 +16,17 @@ public class UserApi extends ApiBase{
 	String apiSuffix_3_0 = Config.CONFIG_API_BASE_3_0 + "/users";
 	
 	public User getUserByEmbedId(String embedId){
+		return getUserByEmbedId(embedId, null);
+	}
+	 
+	public User getUserByEmbedId(String embedId, String[] fields){
 	
 		HashMap<String, String>params = new HashMap();
+		
+		if(fields!=null){
+			params.put("fields", getFieldCriteria(fields));
+		}
+		
 		int[] validCodes = {200, 404};
 		String responseJson = RestClient.performGETOperation(getAuthToken(), apiSuffix_3_0 + "/credential/embed/"+ embedId, params, validCodes);
 	
